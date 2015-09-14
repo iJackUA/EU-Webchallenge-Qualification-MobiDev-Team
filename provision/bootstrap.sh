@@ -17,6 +17,9 @@ curl -sL https://deb.nodesource.com/setup | sudo bash -
 # now lets install it along with nginx
 apt-get -q -y install nodejs php5 php5-cli php5-fpm php5-pgsql nginx postgresql postgresql-contrib
 
+# add rights to www-data user
+sudo usermod -a -G vagrant www-data
+
 # configure postgresql
 sudo -u postgres psql -c "CREATE USER euweb WITH PASSWORD 'euweb';"
 sudo -u postgres createdb -E UTF8 -T template0 --locale=en_US.utf8 euweb_db;

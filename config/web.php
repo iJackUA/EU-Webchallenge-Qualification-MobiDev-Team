@@ -11,6 +11,18 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'ioaOg5HW-J_COTFeD93N3xZ060zZQVyK',
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
+            'rules' => [
+                '<controller:[\w\-]+>/<action:[\w\-]+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:[\w\-]+>/<id:\d+>' => '<controller>/view',
+                //'<controller:[\w\-]+>/<action:[\w\-]+>' => '<controller>/<action>',
+                //'<module:[\w\-]+>/<controller:[\w\-]+>/<action:[\w\-]+>' => '<module>/<controller>/<action>',
+                //'<controller:[\w\-]+>/<action:[\w\-]+>/<id:\w+>' => '<controller>/<action>',
+            ],
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -38,14 +50,11 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
+    ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Admin',
         ],
-        */
     ],
     'params' => $params,
 ];
@@ -60,6 +69,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
+        'allowedIPs' => ['*']
     ];
 }
 
