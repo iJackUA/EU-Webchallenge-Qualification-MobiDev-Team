@@ -11,6 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty32"
   config.vm.provision :shell, :path => "provision/bootstrap.sh"
   config.vm.network "forwarded_port", guest: 80, host: 8888
+  config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777", "fmode=775"]
 
   # fix for Windows symlinks
   # Step 1 - run in Windows cmd "fsutil behavior set SymlinkEvaluation L2L:1 R2R:1 L2R:1 R2L:1". Cmd must be opened as administrator
