@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form builder</title>
+
+    <link rel="stylesheet" type="text/css" href="//oss.maxcdn.com/semantic-ui/2.1.4/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="app.css">
+
+    <script lang="javascript">
+        window.gData = {
+            abc1: 'aa'
+        };
+    </script>
+
+
+</head>
+<body>
+<div id="survey-builder">
+    <h2>Survey Builder</h2>
+
+    <h4>Add</h4>
+
+    <div class="ui buttons">
+        <button class="ui red button">Radio button</button>
+        <button class="ui blue button">Multy checkboxes</button>
+        <button class="ui green button">Textfield</button>
+        <button class="ui yellow button">Slider</button>
+    </div>
+
+    <h4>Questions</h4>
+
+    <ul class="ui form">
+        <li v-repeat="q in questions">
+
+            <builder-q-slider
+                    q="{{@ q}}"
+                    v-if="q.type == 'slider'"
+            ></builder-q-slider>
+
+            <builder-q-text
+                    q="{{@ q}}"
+                    v-if="q.type == 'text'"
+            ></builder-q-text>
+
+        </li>
+    </ul>
+
+
+</div>
+
+
+<!-- ASSETS-->
+
+<script src="vendor/jquery-2.1.4.min.js"></script>
+<script src="vendor/lodash.min.js"></script>
+<script src="//oss.maxcdn.com/semantic-ui/2.1.4/semantic.min.js"></script>
+
+<script src="vendor/vue.js"></script>
+<script src="vendor/vue-resource.js"></script>
+
+<!-- APP JS FILES-->
+<script src="build.js"></script>
+
+</body>
+</html>
