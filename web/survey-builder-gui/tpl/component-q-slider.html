@@ -1,0 +1,13 @@
+<div class="ui yellow inverted segment">
+    Question: <input class="field" type="text"
+                     v-model="q.title"
+                     v-attr="placeholder: q.meta.placeholder"
+>
+
+    From: <input class="field" type="text" v-model="q.meta.from">
+
+    To: <input class="field" type="text" v-model="q.meta.to">
+
+    Default: <input class="field" type="text" v-model="q.meta.default">
+</div>
+
