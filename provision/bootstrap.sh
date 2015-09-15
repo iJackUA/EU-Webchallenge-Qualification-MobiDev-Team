@@ -32,13 +32,21 @@ ln -s /vagrant /usr/share/nginx/www
 
 # copy config
 cat /vagrant/provision/config/default.conf > /etc/nginx/sites-available/default
+cat /vagrant/provision/config/phppgadmin.conf > /etc/nginx/sites-available/phppgadmin
 cat /vagrant/provision/config/php.ini > /etc/php5/php.ini
 
 # TODO: delete oauth token after qualification
 # install composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-/bin/su -c 'composer config -g github-oauth.github.com ecc3b6373489b5dc23013fa7f09cd8c802465b07' vagrant
+/bin/su -c 'composer config -g github-oauth.github.com a30860415e0dcb95ab4d3b9a95c8d66dc627ae12' vagrant
 /bin/su -c 'composer global require "fxp/composer-asset-plugin:~1.0.3"' vagrant
+
+# install pgadmin
+mkdir /opt/phpPgAdmin-5.1
+mkdir /opt/phppgadmin
+wget http://downloads.sourceforge.net/project/phppgadmin/phpPgAdmin%20%5Bstable%5D/phpPgAdmin-5.1/phpPgAdmin-5.1.tar.bz2 -O /tmp/phppgadmin.tar.bz2 && sudo tar jxf /tmp/phppgadmin.tar.bz2 -C /opt && rm /tmp/phppgadmin.tar.bz2
+mv /opt/phpPgAdmin-5.1/ /opt/phppgadmin
+cat /vagrant/provision/config/config.inc.php > /opt/phppgadmin/conf/config.inc.php
 
 # restart server
 /etc/init.d/nginx restart
