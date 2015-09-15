@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use Zelenin\yii\SemanticUI\collections\Menu;
 use Zelenin\yii\SemanticUI\Elements;
 use app\assets\AppAsset;
@@ -36,11 +37,11 @@ AppAsset::register($this);
                                   ],
                                   [
                                       'label' => 'Users',
-                                      'url' => ['/users']
+                                      'url' => [Url::toRoute(['users/index'])]
                                   ],
                                   [
                                       'label' => 'Surveys',
-                                      'url' => ['/surveys']
+                                      'url' => [Url::toRoute(['surveys/index'])]
                                   ],
                               ],
                               'rightMenuItems' => [
