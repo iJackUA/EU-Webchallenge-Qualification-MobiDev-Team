@@ -5,10 +5,21 @@
 >
     <input type="checkbox" v-model="q.required"> Required </br>
 
-    From: <input class="field" type="text" v-model="q.meta.from">
+    <div class="fields">
+        <div class="six wide field">
+            <label>From</label>
+            <input type="text" v-model="q.meta.from">
+        </div>
+        <div class="six wide field">
+            <label>To</label>
+            <input type="text" v-model="q.meta.to">
+        </div>
+        <div class="four wide field">
+            <label>Defualt</label>
+            <input type="text" v-model="q.meta.default">
+        </div>
+    </div>
 
-    To: <input class="field" type="text" v-model="q.meta.to">
 
-    Default: <input class="field" type="text" v-model="q.meta.default">
 </div>
 

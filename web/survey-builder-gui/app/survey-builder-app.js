@@ -1,3 +1,4 @@
+var g = require('./global');
 var Vue = require('../vendor/vue');
 Vue.config.debug = true;
 //Vue.use(require('../vendor/vue-resource'));
@@ -5,28 +6,7 @@ Vue.config.debug = true;
 var SurveyBuilderApp = new Vue({
     el: '#survey-builder',
     data: {
-        questions: [
-            {
-                title: 'Q TEXT',
-                pos: 1,
-                required: true,
-                type: 'textfield',
-                meta: {
-                    placeholder: 'Some default placeholder'
-                }
-            },
-            {
-                title: 'Q SLIDER',
-                pos: 1,
-                required: true,
-                type: 'slider',
-                meta: {
-                    from: 10,
-                    to: 150,
-                    default: 56
-                }
-            }
-        ]
+        questions: []
     },
     components: {
         'builder-q-radio': require('./component-q-radio'),
@@ -37,6 +17,7 @@ var SurveyBuilderApp = new Vue({
     methods: {
         defaultQuestion: function () {
             return {
+                uuid: g.makeUUID(),
                 title: 'Question title',
                 pos: 1,
                 required: false,
@@ -46,15 +27,17 @@ var SurveyBuilderApp = new Vue({
         },
         addRadio: function () {
             var q = _.merge(
-                this.defaultQuestion,
+                this.defaultQuestion(),
                 {
                     type: 'radio',
                     meta: {
                         options: [
                             {
+                                id: g.makeUUID(),
                                 text: 'Radio button #1'
                             },
                             {
+                                id: g.makeUUID(),
                                 text: 'Radio button #2'
                             }
                         ]
@@ -64,12 +47,13 @@ var SurveyBuilderApp = new Vue({
         },
         addCheckboxes: function () {
             var q = _.merge(
-                this.defaultQuestion,
+                this.defaultQuestion(),
                 {
                     type: 'checkboxes',
                     meta: {
                         options: [
                             {
+                                id: g.makeUUID(),
                                 text: 'Checkbox #1'
                             }
                         ]
@@ -79,7 +63,7 @@ var SurveyBuilderApp = new Vue({
         },
         addTextfield: function () {
             var q = _.merge(
-                this.defaultQuestion,
+                this.defaultQuestion(),
                 {
                     type: 'textfield',
                     meta: {
@@ -90,7 +74,7 @@ var SurveyBuilderApp = new Vue({
         },
         addSlider: function () {
             var q = _.merge(
-                this.defaultQuestion,
+                this.defaultQuestion(),
                 {
                     type: 'slider',
                     meta: {
@@ -106,3 +90,5 @@ var SurveyBuilderApp = new Vue({
         },
     }
 });
+
+window.dbgApp = SurveyBuilderApp;

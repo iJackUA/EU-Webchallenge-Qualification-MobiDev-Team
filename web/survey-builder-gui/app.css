@@ -1,0 +1,21 @@
+.expand-transition {
+    transition: all 0.5s ease;
+}
+
+.expand-enter, .expand-leave {
+    height: 0;
+    opacity: 0;
+}
+
+li {
+    list-style-type: decimal;
+    padding: 5px;
+}
+
+ul.radio {
+    padding-left: 0;
+}
+
+ul.radio li {
+    list-style-type: none;
+}

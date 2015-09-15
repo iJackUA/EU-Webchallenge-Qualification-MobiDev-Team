@@ -5,6 +5,22 @@
 >
     <input type="checkbox" v-model="q.required"> Required </br>
 
-    Checkboxes
+    <button class="ui inverted green button"
+            v-on="click:addOption">Add answer option
+    </button>
+
+    <ul class="radio">
+        <li v-repeat="option in q.meta.options" v-transition="expand">
+            <div class="ui action input fluid">
+                <input class="field" type="text"
+                       v-model="option.text"
+                >
+                <button class="ui inverted red button icon"
+                        v-on="click:removeOption(option)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </li>
+    </ul>
 </div>
 

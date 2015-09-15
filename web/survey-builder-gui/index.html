@@ -26,7 +26,7 @@
                 v-on="click:addRadio">Radio button
         </button>
         <button class="ui blue button"
-                v-on="click:addCheckboxes">Multy checkboxes
+                v-on="click:addCheckboxes">Checkboxes
         </button>
         <button class="ui green button"
                 v-on="click:addTextfield">Textfield
@@ -39,7 +39,7 @@
     <h4>Questions</h4>
 
     <ul class="ui form">
-        <li v-repeat="q in questions">
+        <li v-repeat="q in questions" v-transition="expand">
 
             <builder-q-radio
                     q="{{@ q}}"
