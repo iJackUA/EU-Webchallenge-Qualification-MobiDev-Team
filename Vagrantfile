@@ -10,6 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
   config.vm.box = "ubuntu/trusty32"
   config.vm.provision :shell, :path => "provision/bootstrap.sh"
+  config.vm.network "private_network", ip: "192.168.11.11"
   config.vm.network "forwarded_port", guest: 80, host: 8888
   config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777", "fmode=775"]
 

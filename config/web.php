@@ -61,6 +61,9 @@ $config = [
             'layout' => 'main',
             'defaultRoute' => 'dashboard',
         ],
+        'user' => [
+            'class' => 'dektrium\user\Module',
+        ],
     ],
     'params' => $params,
 ];

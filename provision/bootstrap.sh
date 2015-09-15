@@ -38,7 +38,7 @@ cat /vagrant/provision/config/php.ini > /etc/php5/php.ini
 # TODO: delete oauth token after qualification
 # install composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-/bin/su -c 'composer config -g github-oauth.github.com a30860415e0dcb95ab4d3b9a95c8d66dc627ae12' vagrant
+/bin/su -c 'composer config -g github-oauth.github.com  4fe8f8d8f8f57d16e31a331633d0ccaf53cc20c2' vagrant
 /bin/su -c 'composer global require "fxp/composer-asset-plugin:~1.0.3"' vagrant
 
 # install pgadmin
@@ -63,5 +63,6 @@ cd /vagrant
 /bin/su -c 'npm run-script build' vagrant
 
 # run migrations
-/bin/su -c './yii migrate --migrationPath=@yii/rbac/migrations --interactive=0' vagrant
-/bin/su -c './yii migrate --interactive=0' vagrant
+/bin/su -c './yii migrate --migrationPath=@vendor/dektrium/yii2-user/migrations --interactive=0' vagrant
+#/bin/su -c './yii migrate --migrationPath=@yii/rbac/migrations --interactive=0' vagrant
+#/bin/su -c './yii migrate --interactive=0' vagrant
