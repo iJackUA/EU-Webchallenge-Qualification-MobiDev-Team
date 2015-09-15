@@ -44,8 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var g = __webpack_require__(11);
-	var Vue = __webpack_require__(1);
+	var g = __webpack_require__(1);
+	var Vue = __webpack_require__(3);
 	Vue.config.debug = true;
 	//Vue.use(require('../vendor/vue-resource'));
 
@@ -54,11 +54,14 @@
 	    data: {
 	        questions: []
 	    },
+	    ready: function () {
+	        this.$on('removeQuestion', this.removeQuestion);
+	    },
 	    components: {
-	        'builder-q-radio': __webpack_require__(2),
-	        'builder-q-checkboxes': __webpack_require__(4),
-	        'builder-q-textfield': __webpack_require__(6),
-	        'builder-q-slider': __webpack_require__(8)
+	        'builder-q-radio': __webpack_require__(4),
+	        'builder-q-checkboxes': __webpack_require__(6),
+	        'builder-q-textfield': __webpack_require__(8),
+	        'builder-q-slider': __webpack_require__(10)
 	    },
 	    methods: {
 	        defaultQuestion: function () {
@@ -134,6 +137,9 @@
 	        addQuestion: function (q) {
 	            this.questions.push(q);
 	        },
+	        removeQuestion: function (q, index) {
+	            this.questions.$remove(index);
+	        }
 	    }
 	});
 
@@ -142,6 +148,265 @@
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UUID = __webpack_require__(2);
+
+	module.exports = {
+	    makeUUID: function () {
+	        return UUID.create(4).toString();
+	    }
+	};
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	/*
+	 * UUID-js: A js library to generate and parse UUIDs, TimeUUIDs and generate
+	 * TimeUUID based on dates for range selections.
+	 * @see http://www.ietf.org/rfc/rfc4122.txt
+	 **/
+
+	function UUIDjs() {
+	};
+
+	UUIDjs.maxFromBits = function(bits) {
+	  return Math.pow(2, bits);
+	};
+
+	UUIDjs.limitUI04 = UUIDjs.maxFromBits(4);
+	UUIDjs.limitUI06 = UUIDjs.maxFromBits(6);
+	UUIDjs.limitUI08 = UUIDjs.maxFromBits(8);
+	UUIDjs.limitUI12 = UUIDjs.maxFromBits(12);
+	UUIDjs.limitUI14 = UUIDjs.maxFromBits(14);
+	UUIDjs.limitUI16 = UUIDjs.maxFromBits(16);
+	UUIDjs.limitUI32 = UUIDjs.maxFromBits(32);
+	UUIDjs.limitUI40 = UUIDjs.maxFromBits(40);
+	UUIDjs.limitUI48 = UUIDjs.maxFromBits(48);
+
+	// Returns a random integer between min and max
+	// Using Math.round() will give you a non-uniform distribution!
+	// @see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Math/random
+	function getRandomInt(min, max) {
+	  return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	UUIDjs.randomUI04 = function() {
+	  return getRandomInt(0, UUIDjs.limitUI04-1);
+	};
+	UUIDjs.randomUI06 = function() {
+	  return getRandomInt(0, UUIDjs.limitUI06-1);
+	};
+	UUIDjs.randomUI08 = function() {
+	  return getRandomInt(0, UUIDjs.limitUI08-1);
+	};
+	UUIDjs.randomUI12 = function() {
+	  return getRandomInt(0, UUIDjs.limitUI12-1);
+	};
+	UUIDjs.randomUI14 = function() {
+	  return getRandomInt(0, UUIDjs.limitUI14-1);
+	};
+	UUIDjs.randomUI16 = function() {
+	  return getRandomInt(0, UUIDjs.limitUI16-1);
+	};
+	UUIDjs.randomUI32 = function() {
+	  return getRandomInt(0, UUIDjs.limitUI32-1);
+	};
+	UUIDjs.randomUI40 = function() {
+	  return (0 | Math.random() * (1 << 30)) + (0 | Math.random() * (1 << 40 - 30)) * (1 << 30);
+	};
+	UUIDjs.randomUI48 = function() {
+	  return (0 | Math.random() * (1 << 30)) + (0 | Math.random() * (1 << 48 - 30)) * (1 << 30);
+	};
+
+	UUIDjs.paddedString = function(string, length, z) {
+	  string = String(string);
+	  z = (!z) ? '0' : z;
+	  var i = length - string.length;
+	  for (; i > 0; i >>>= 1, z += z) {
+	    if (i & 1) {
+	      string = z + string;
+	    }
+	  }
+	  return string;
+	};
+
+	UUIDjs.prototype.fromParts = function(timeLow, timeMid, timeHiAndVersion, clockSeqHiAndReserved, clockSeqLow, node) {
+	  this.version = (timeHiAndVersion >> 12) & 0xF;
+	  this.hex = UUIDjs.paddedString(timeLow.toString(16), 8)
+	             + '-'
+	             + UUIDjs.paddedString(timeMid.toString(16), 4)
+	             + '-'
+	             + UUIDjs.paddedString(timeHiAndVersion.toString(16), 4)
+	             + '-'
+	             + UUIDjs.paddedString(clockSeqHiAndReserved.toString(16), 2)
+	             + UUIDjs.paddedString(clockSeqLow.toString(16), 2)
+	             + '-'
+	             + UUIDjs.paddedString(node.toString(16), 12);
+	  return this;
+	};
+
+	UUIDjs.prototype.toString = function() {
+	  return this.hex;
+	};
+	UUIDjs.prototype.toURN = function() {
+	  return 'urn:uuid:' + this.hex;
+	};
+
+	UUIDjs.prototype.toBytes = function() {
+	  var parts = this.hex.split('-');
+	  var ints = [];
+	  var intPos = 0;
+	  for (var i = 0; i < parts.length; i++) {
+	    for (var j = 0; j < parts[i].length; j+=2) {
+	      ints[intPos++] = parseInt(parts[i].substr(j, 2), 16);
+	    }
+	  }
+	  return ints;
+	};
+
+	UUIDjs.prototype.equals = function(uuid) {
+	  if (!(uuid instanceof UUID)) {
+	    return false;
+	  }
+	  if (this.hex !== uuid.hex) {
+	    return false;
+	  }
+	  return true;
+	};
+
+	UUIDjs.getTimeFieldValues = function(time) {
+	  var ts = time - Date.UTC(1582, 9, 15);
+	  var hm = ((ts / 0x100000000) * 10000) & 0xFFFFFFF;
+	  return { low: ((ts & 0xFFFFFFF) * 10000) % 0x100000000,
+	            mid: hm & 0xFFFF, hi: hm >>> 16, timestamp: ts };
+	};
+
+	UUIDjs._create4 = function() {
+	  return new UUIDjs().fromParts(
+	    UUIDjs.randomUI32(),
+	    UUIDjs.randomUI16(),
+	    0x4000 | UUIDjs.randomUI12(),
+	    0x80   | UUIDjs.randomUI06(),
+	    UUIDjs.randomUI08(),
+	    UUIDjs.randomUI48()
+	  );
+	};
+
+	UUIDjs._create1 = function() {
+	  var now = new Date().getTime();
+	  var sequence = UUIDjs.randomUI14();
+	  var node = (UUIDjs.randomUI08() | 1) * 0x10000000000 + UUIDjs.randomUI40();
+	  var tick = UUIDjs.randomUI04();
+	  var timestamp = 0;
+	  var timestampRatio = 1/4;
+
+	  if (now != timestamp) {
+	    if (now < timestamp) {
+	      sequence++;
+	    }
+	    timestamp = now;
+	    tick = UUIDjs.randomUI04();
+	  } else if (Math.random() < timestampRatio && tick < 9984) {
+	    tick += 1 + UUIDjs.randomUI04();
+	  } else {
+	    sequence++;
+	  }
+
+	  var tf = UUIDjs.getTimeFieldValues(timestamp);
+	  var tl = tf.low + tick;
+	  var thav = (tf.hi & 0xFFF) | 0x1000;
+
+	  sequence &= 0x3FFF;
+	  var cshar = (sequence >>> 8) | 0x80;
+	  var csl = sequence & 0xFF;
+
+	  return new UUIDjs().fromParts(tl, tf.mid, thav, cshar, csl, node);
+	};
+
+	UUIDjs.create = function(version) {
+	  version = version || 4;
+	  return this['_create' + version]();
+	};
+
+	UUIDjs.fromTime = function(time, last) {
+	  last = (!last) ? false : last;
+	  var tf = UUIDjs.getTimeFieldValues(time);
+	  var tl = tf.low;
+	  var thav = (tf.hi & 0xFFF) | 0x1000;  // set version '0001'
+	  if (last === false) {
+	    return new UUIDjs().fromParts(tl, tf.mid, thav, 0, 0, 0);
+	  } else {
+	    return new UUIDjs().fromParts(tl, tf.mid, thav, 0x80 | UUIDjs.limitUI06, UUIDjs.limitUI08 - 1, UUIDjs.limitUI48 - 1);
+	  }
+	};
+
+	UUIDjs.firstFromTime = function(time) {
+	  return UUIDjs.fromTime(time, false);
+	};
+	UUIDjs.lastFromTime = function(time) {
+	  return UUIDjs.fromTime(time, true);
+	};
+
+	UUIDjs.fromURN = function(strId) {
+	  var r, p = /^(?:urn:uuid:|\{)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})(?:\})?$/i;
+	  if ((r = p.exec(strId))) {
+	    return new UUIDjs().fromParts(parseInt(r[1], 16), parseInt(r[2], 16),
+	                            parseInt(r[3], 16), parseInt(r[4], 16),
+	                            parseInt(r[5], 16), parseInt(r[6], 16));
+	  }
+	  return null;
+	};
+
+	UUIDjs.fromBytes = function(ints) {
+	  if (ints.length < 5) {
+	    return null;
+	  }
+	  var str = '';
+	  var pos = 0;
+	  var parts = [4, 2, 2, 2, 6];
+	  for (var i = 0; i < parts.length; i++) {
+	    for (var j = 0; j < parts[i]; j++) {
+	      var octet = ints[pos++].toString(16);
+	      if (octet.length == 1) {
+	        octet = '0' + octet;
+	      }
+	      str += octet;
+	    }
+	    if (parts[i] !== 6) {
+	      str += '-';
+	    }
+	  }
+	  return UUIDjs.fromURN(str);
+	};
+
+	UUIDjs.fromBinary = function(binary) {
+	  var ints = [];
+	  for (var i = 0; i < binary.length; i++) {
+	    ints[i] = binary.charCodeAt(i);
+	    if (ints[i] > 255 || ints[i] < 0) {
+	      throw new Error('Unexpected byte in binary data.');
+	    }
+	  }
+	  return UUIDjs.fromBytes(ints);
+	};
+
+	// Aliases to support legacy code. Do not use these when writing new code as
+	// they may be removed in future versions!
+	UUIDjs.new = function() {
+	  return this.create(4);
+	};
+	UUIDjs.newTS = function() {
+	  return this.create(1);
+	};
+
+	module.exports = UUIDjs;
+
+
+/***/ },
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -10285,15 +10550,15 @@
 	;
 
 /***/ },
-/* 2 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var g = __webpack_require__(11);
+	var g = __webpack_require__(1);
 
 	module.exports = {
-	    template: __webpack_require__(3),
+	    template: __webpack_require__(5),
 
-	    props: ['q'],
+	    props: ['q', 'position'],
 
 	    data: function () {
 	        return {}
@@ -10308,6 +10573,9 @@
 	        },
 	        removeOption: function (option) {
 	            this.q.meta.options = _.reject(this.q.meta.options, 'id', option.id);
+	        },
+	        remove: function () {
+	            this.$dispatch('removeQuestion', this.q, this.position);
 	        }
 	    }
 	};
@@ -10315,21 +10583,21 @@
 
 
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"ui red inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required</br>\n\n    <button class=\"ui inverted green button\"\n            v-on=\"click:addOption\">Add answer option\n    </button>\n\n    <ul class=\"radio\">\n        <li v-repeat=\"option in q.meta.options\" v-transition=\"expand\">\n            <div class=\"ui action input fluid\">\n                <input class=\"field\" type=\"text\"\n                       v-model=\"option.text\"\n                >\n                <button class=\"ui inverted red button icon\"\n                        v-on=\"click:removeOption(option)\">\n                    <i class=\"remove icon\"></i>\n                </button>\n            </div>\n        </li>\n    </ul>\n\n</div>\n\n";
+	module.exports = "<div class=\"ui red inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required</br>\n\n    <button class=\"ui inverted green button\"\n            v-on=\"click:addOption\">Add answer option\n    </button>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove\">Remove question\n    </button>\n\n    <ul class=\"radio\">\n        <li v-repeat=\"option in q.meta.options\" v-transition=\"expand\">\n            <div class=\"ui action input fluid\">\n                <input class=\"field\" type=\"text\"\n                       v-model=\"option.text\"\n                >\n                <button class=\"ui inverted red button icon\"\n                        v-on=\"click:removeOption(option)\">\n                    <i class=\"remove icon\"></i>\n                </button>\n            </div>\n        </li>\n    </ul>\n\n</div>\n\n";
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var g = __webpack_require__(11);
+	var g = __webpack_require__(1);
 
 	module.exports = {
-	    template: __webpack_require__(5),
+	    template: __webpack_require__(7),
 
-	    props: ['q'],
+	    props: ['q', 'position'],
 
 	    data: function () {
 	        return {}
@@ -10344,6 +10612,9 @@
 	        },
 	        removeOption: function (option) {
 	            this.q.meta.options = _.reject(this.q.meta.options, 'id', option.id);
+	        },
+	        remove: function () {
+	            this.$dispatch('removeQuestion', this.q, this.position);
 	        }
 	    }
 	}
@@ -10351,31 +10622,10 @@
 
 
 /***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"ui blue inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    <button class=\"ui inverted green button\"\n            v-on=\"click:addOption\">Add answer option\n    </button>\n\n    <ul class=\"radio\">\n        <li v-repeat=\"option in q.meta.options\" v-transition=\"expand\">\n            <div class=\"ui action input fluid\">\n                <input class=\"field\" type=\"text\"\n                       v-model=\"option.text\"\n                >\n                <button class=\"ui inverted red button icon\"\n                        v-on=\"click:removeOption(option)\">\n                    <i class=\"remove icon\"></i>\n                </button>\n            </div>\n        </li>\n    </ul>\n</div>\n\n";
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-	    template: __webpack_require__(7),
-
-	    props: ['q'],
-
-	    data: function () {
-	        return {}
-	    }
-	}
-
-
-/***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"ui green inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    Text placeholder: <input class=\"field\" type=\"text\"\n                             v-model=\"q.meta.placeholder\"\n>\n</div>\n\n\n";
+	module.exports = "<div class=\"ui blue inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    <button class=\"ui inverted green button\"\n            v-on=\"click:addOption\">Add answer option\n    </button>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove($index)\">Remove question\n    </button>\n\n    <ul class=\"radio\">\n        <li v-repeat=\"option in q.meta.options\" v-transition=\"expand\">\n            <div class=\"ui action input fluid\">\n                <input class=\"field\" type=\"text\"\n                       v-model=\"option.text\"\n                >\n                <button class=\"ui inverted red button icon\"\n                        v-on=\"click:removeOption(option)\">\n                    <i class=\"remove icon\"></i>\n                </button>\n            </div>\n        </li>\n    </ul>\n</div>\n\n";
 
 /***/ },
 /* 8 */
@@ -10384,279 +10634,51 @@
 	module.exports = {
 	    template: __webpack_require__(9),
 
-	    props: ['q'],
+	    props: ['q', 'position'],
 
 	    data: function () {
 	        return {}
+	    },
+	    methods: {
+	        remove: function () {
+	            this.$dispatch('removeQuestion', this.q, this.position);
+	        }
 	    }
 	}
-
 
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"ui yellow inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    <div class=\"fields\">\n        <div class=\"six wide field\">\n            <label>From</label>\n            <input type=\"text\" v-model=\"q.meta.from\">\n        </div>\n        <div class=\"six wide field\">\n            <label>To</label>\n            <input type=\"text\" v-model=\"q.meta.to\">\n        </div>\n        <div class=\"four wide field\">\n            <label>Defualt</label>\n            <input type=\"text\" v-model=\"q.meta.default\">\n        </div>\n    </div>\n\n\n</div>\n\n";
+	module.exports = "<div class=\"ui green inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove($index)\">Remove question\n    </button>\n\n    </br>\n\n    Text placeholder: <input class=\"field\" type=\"text\"\n                             v-model=\"q.meta.placeholder\"\n>\n</div>\n\n\n";
 
 /***/ },
 /* 10 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	/*
-	 * UUID-js: A js library to generate and parse UUIDs, TimeUUIDs and generate
-	 * TimeUUID based on dates for range selections.
-	 * @see http://www.ietf.org/rfc/rfc4122.txt
-	 **/
+	module.exports = {
+	    template: __webpack_require__(11),
 
-	function UUIDjs() {
-	};
+	    props: ['q', 'position'],
 
-	UUIDjs.maxFromBits = function(bits) {
-	  return Math.pow(2, bits);
-	};
-
-	UUIDjs.limitUI04 = UUIDjs.maxFromBits(4);
-	UUIDjs.limitUI06 = UUIDjs.maxFromBits(6);
-	UUIDjs.limitUI08 = UUIDjs.maxFromBits(8);
-	UUIDjs.limitUI12 = UUIDjs.maxFromBits(12);
-	UUIDjs.limitUI14 = UUIDjs.maxFromBits(14);
-	UUIDjs.limitUI16 = UUIDjs.maxFromBits(16);
-	UUIDjs.limitUI32 = UUIDjs.maxFromBits(32);
-	UUIDjs.limitUI40 = UUIDjs.maxFromBits(40);
-	UUIDjs.limitUI48 = UUIDjs.maxFromBits(48);
-
-	// Returns a random integer between min and max
-	// Using Math.round() will give you a non-uniform distribution!
-	// @see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Math/random
-	function getRandomInt(min, max) {
-	  return Math.floor(Math.random() * (max - min + 1)) + min;
+	    data: function () {
+	        return {}
+	    },
+	    methods: {
+	        remove: function () {
+	            this.$dispatch('removeQuestion', this.q, this.position);
+	        }
+	    }
 	}
 
-	UUIDjs.randomUI04 = function() {
-	  return getRandomInt(0, UUIDjs.limitUI04-1);
-	};
-	UUIDjs.randomUI06 = function() {
-	  return getRandomInt(0, UUIDjs.limitUI06-1);
-	};
-	UUIDjs.randomUI08 = function() {
-	  return getRandomInt(0, UUIDjs.limitUI08-1);
-	};
-	UUIDjs.randomUI12 = function() {
-	  return getRandomInt(0, UUIDjs.limitUI12-1);
-	};
-	UUIDjs.randomUI14 = function() {
-	  return getRandomInt(0, UUIDjs.limitUI14-1);
-	};
-	UUIDjs.randomUI16 = function() {
-	  return getRandomInt(0, UUIDjs.limitUI16-1);
-	};
-	UUIDjs.randomUI32 = function() {
-	  return getRandomInt(0, UUIDjs.limitUI32-1);
-	};
-	UUIDjs.randomUI40 = function() {
-	  return (0 | Math.random() * (1 << 30)) + (0 | Math.random() * (1 << 40 - 30)) * (1 << 30);
-	};
-	UUIDjs.randomUI48 = function() {
-	  return (0 | Math.random() * (1 << 30)) + (0 | Math.random() * (1 << 48 - 30)) * (1 << 30);
-	};
-
-	UUIDjs.paddedString = function(string, length, z) {
-	  string = String(string);
-	  z = (!z) ? '0' : z;
-	  var i = length - string.length;
-	  for (; i > 0; i >>>= 1, z += z) {
-	    if (i & 1) {
-	      string = z + string;
-	    }
-	  }
-	  return string;
-	};
-
-	UUIDjs.prototype.fromParts = function(timeLow, timeMid, timeHiAndVersion, clockSeqHiAndReserved, clockSeqLow, node) {
-	  this.version = (timeHiAndVersion >> 12) & 0xF;
-	  this.hex = UUIDjs.paddedString(timeLow.toString(16), 8)
-	             + '-'
-	             + UUIDjs.paddedString(timeMid.toString(16), 4)
-	             + '-'
-	             + UUIDjs.paddedString(timeHiAndVersion.toString(16), 4)
-	             + '-'
-	             + UUIDjs.paddedString(clockSeqHiAndReserved.toString(16), 2)
-	             + UUIDjs.paddedString(clockSeqLow.toString(16), 2)
-	             + '-'
-	             + UUIDjs.paddedString(node.toString(16), 12);
-	  return this;
-	};
-
-	UUIDjs.prototype.toString = function() {
-	  return this.hex;
-	};
-	UUIDjs.prototype.toURN = function() {
-	  return 'urn:uuid:' + this.hex;
-	};
-
-	UUIDjs.prototype.toBytes = function() {
-	  var parts = this.hex.split('-');
-	  var ints = [];
-	  var intPos = 0;
-	  for (var i = 0; i < parts.length; i++) {
-	    for (var j = 0; j < parts[i].length; j+=2) {
-	      ints[intPos++] = parseInt(parts[i].substr(j, 2), 16);
-	    }
-	  }
-	  return ints;
-	};
-
-	UUIDjs.prototype.equals = function(uuid) {
-	  if (!(uuid instanceof UUID)) {
-	    return false;
-	  }
-	  if (this.hex !== uuid.hex) {
-	    return false;
-	  }
-	  return true;
-	};
-
-	UUIDjs.getTimeFieldValues = function(time) {
-	  var ts = time - Date.UTC(1582, 9, 15);
-	  var hm = ((ts / 0x100000000) * 10000) & 0xFFFFFFF;
-	  return { low: ((ts & 0xFFFFFFF) * 10000) % 0x100000000,
-	            mid: hm & 0xFFFF, hi: hm >>> 16, timestamp: ts };
-	};
-
-	UUIDjs._create4 = function() {
-	  return new UUIDjs().fromParts(
-	    UUIDjs.randomUI32(),
-	    UUIDjs.randomUI16(),
-	    0x4000 | UUIDjs.randomUI12(),
-	    0x80   | UUIDjs.randomUI06(),
-	    UUIDjs.randomUI08(),
-	    UUIDjs.randomUI48()
-	  );
-	};
-
-	UUIDjs._create1 = function() {
-	  var now = new Date().getTime();
-	  var sequence = UUIDjs.randomUI14();
-	  var node = (UUIDjs.randomUI08() | 1) * 0x10000000000 + UUIDjs.randomUI40();
-	  var tick = UUIDjs.randomUI04();
-	  var timestamp = 0;
-	  var timestampRatio = 1/4;
-
-	  if (now != timestamp) {
-	    if (now < timestamp) {
-	      sequence++;
-	    }
-	    timestamp = now;
-	    tick = UUIDjs.randomUI04();
-	  } else if (Math.random() < timestampRatio && tick < 9984) {
-	    tick += 1 + UUIDjs.randomUI04();
-	  } else {
-	    sequence++;
-	  }
-
-	  var tf = UUIDjs.getTimeFieldValues(timestamp);
-	  var tl = tf.low + tick;
-	  var thav = (tf.hi & 0xFFF) | 0x1000;
-
-	  sequence &= 0x3FFF;
-	  var cshar = (sequence >>> 8) | 0x80;
-	  var csl = sequence & 0xFF;
-
-	  return new UUIDjs().fromParts(tl, tf.mid, thav, cshar, csl, node);
-	};
-
-	UUIDjs.create = function(version) {
-	  version = version || 4;
-	  return this['_create' + version]();
-	};
-
-	UUIDjs.fromTime = function(time, last) {
-	  last = (!last) ? false : last;
-	  var tf = UUIDjs.getTimeFieldValues(time);
-	  var tl = tf.low;
-	  var thav = (tf.hi & 0xFFF) | 0x1000;  // set version '0001'
-	  if (last === false) {
-	    return new UUIDjs().fromParts(tl, tf.mid, thav, 0, 0, 0);
-	  } else {
-	    return new UUIDjs().fromParts(tl, tf.mid, thav, 0x80 | UUIDjs.limitUI06, UUIDjs.limitUI08 - 1, UUIDjs.limitUI48 - 1);
-	  }
-	};
-
-	UUIDjs.firstFromTime = function(time) {
-	  return UUIDjs.fromTime(time, false);
-	};
-	UUIDjs.lastFromTime = function(time) {
-	  return UUIDjs.fromTime(time, true);
-	};
-
-	UUIDjs.fromURN = function(strId) {
-	  var r, p = /^(?:urn:uuid:|\{)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})(?:\})?$/i;
-	  if ((r = p.exec(strId))) {
-	    return new UUIDjs().fromParts(parseInt(r[1], 16), parseInt(r[2], 16),
-	                            parseInt(r[3], 16), parseInt(r[4], 16),
-	                            parseInt(r[5], 16), parseInt(r[6], 16));
-	  }
-	  return null;
-	};
-
-	UUIDjs.fromBytes = function(ints) {
-	  if (ints.length < 5) {
-	    return null;
-	  }
-	  var str = '';
-	  var pos = 0;
-	  var parts = [4, 2, 2, 2, 6];
-	  for (var i = 0; i < parts.length; i++) {
-	    for (var j = 0; j < parts[i]; j++) {
-	      var octet = ints[pos++].toString(16);
-	      if (octet.length == 1) {
-	        octet = '0' + octet;
-	      }
-	      str += octet;
-	    }
-	    if (parts[i] !== 6) {
-	      str += '-';
-	    }
-	  }
-	  return UUIDjs.fromURN(str);
-	};
-
-	UUIDjs.fromBinary = function(binary) {
-	  var ints = [];
-	  for (var i = 0; i < binary.length; i++) {
-	    ints[i] = binary.charCodeAt(i);
-	    if (ints[i] > 255 || ints[i] < 0) {
-	      throw new Error('Unexpected byte in binary data.');
-	    }
-	  }
-	  return UUIDjs.fromBytes(ints);
-	};
-
-	// Aliases to support legacy code. Do not use these when writing new code as
-	// they may be removed in future versions!
-	UUIDjs.new = function() {
-	  return this.create(4);
-	};
-	UUIDjs.newTS = function() {
-	  return this.create(1);
-	};
-
-	module.exports = UUIDjs;
 
 
 /***/ },
 /* 11 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var UUID = __webpack_require__(10);
-
-	module.exports = {
-	    makeUUID: function () {
-	        return UUID.create(4).toString();
-	    }
-	};
-
+	module.exports = "<div class=\"ui yellow inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove($index)\">Remove question\n    </button>\n\n    <div class=\"fields\">\n        <div class=\"six wide field\">\n            <label>From</label>\n            <input type=\"text\" v-model=\"q.meta.from\">\n        </div>\n        <div class=\"six wide field\">\n            <label>To</label>\n            <input type=\"text\" v-model=\"q.meta.to\">\n        </div>\n        <div class=\"four wide field\">\n            <label>Defualt</label>\n            <input type=\"text\" v-model=\"q.meta.default\">\n        </div>\n    </div>\n\n\n</div>\n\n";
 
 /***/ }
 /******/ ]);

@@ -5,6 +5,10 @@
 >
     <input type="checkbox" v-model="q.required"> Required </br>
 
+    <button class="ui inverted red button"
+            v-on="click:remove($index)">Remove question
+    </button>
+
     <div class="fields">
         <div class="six wide field">
             <label>From</label>
