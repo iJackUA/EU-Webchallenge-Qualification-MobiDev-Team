@@ -4,58 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1106380d95cadfccabc8f46a89ebb9e8",
-    "content-hash": "06869dda4dadfad3a121ba18baa7d18c",
+    "hash": "e9ee43dfb2dcf264205a6de26806e128",
+    "content-hash": "8cd76267c36346ee664faad7e0fe6ba6",
     "packages": [
-        {
-            "name": "bower-asset/bootstrap",
-            "version": "v3.3.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "16b48259a62f576e52c903c476bd42b90ab22482"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16b48259a62f576e52c903c476bd42b90ab22482",
-                "reference": "16b48259a62f576e52c903c476bd42b90ab22482",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.9.1"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "less/bootstrap.less",
-                    "dist/js/bootstrap.js"
-                ],
-                "bower-asset-ignore": [
-                    "/.*",
-                    "_config.yml",
-                    "CNAME",
-                    "composer.json",
-                    "CONTRIBUTING.md",
-                    "docs",
-                    "js/tests",
-                    "test-infra"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-            "keywords": [
-                "css",
-                "framework",
-                "front-end",
-                "js",
-                "less",
-                "mobile-first",
-                "responsive",
-                "web"
-            ]
-        },
         {
             "name": "bower-asset/jquery",
             "version": "2.1.4",
@@ -179,6 +130,45 @@
                     "package.json"
                 ]
             }
+        },
+        {
+            "name": "bower-asset/semantic",
+            "version": "2.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Semantic-Org/Semantic-UI.git",
+                "reference": "1cdfbd8bb69baa623fe6e524755b83c018b247ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Semantic-Org/Semantic-UI/zipball/1cdfbd8bb69baa623fe6e524755b83c018b247ab",
+                "reference": "1cdfbd8bb69baa623fe6e524755b83c018b247ab",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.8"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "src/semantic.less",
+                    "dist/semantic.js"
+                ],
+                "bower-asset-ignore": [
+                    "src/site",
+                    "test"
+                ]
+            },
+            "license": [
+                "http://semantic-ui.mit-license.org/"
+            ],
+            "description": "Semantic empowers designers and developers by creating a shared vocabulary for UI.",
+            "keywords": [
+                "css3",
+                "framework",
+                "semantic",
+                "ui"
+            ]
         },
         {
             "name": "bower-asset/yii2-pjax",
@@ -463,56 +453,6 @@
             "time": "2015-09-13 23:12:35"
         },
         {
-            "name": "yiisoft/yii2-bootstrap",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "5ae12770c69b1b42f1be742ca16d97dc63371eb8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/5ae12770c69b1b42f1be742ca16d97dc63371eb8",
-                "reference": "5ae12770c69b1b42f1be742ca16d97dc63371eb8",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
-                "yiisoft/yii2": ">=2.0.6"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                },
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\bootstrap\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Qiang Xue",
-                    "email": "qiang.xue@gmail.com"
-                }
-            ],
-            "description": "The Twitter Bootstrap extension for the Yii framework",
-            "keywords": [
-                "bootstrap",
-                "yii2"
-            ],
-            "time": "2015-08-27 12:55:38"
-        },
-        {
             "name": "yiisoft/yii2-composer",
             "version": "dev-master",
             "source": {
@@ -608,9 +548,104 @@
                 "yii2"
             ],
             "time": "2015-06-18 08:31:25"
+        },
+        {
+            "name": "zelenin/yii2-semantic-ui",
+            "version": "2.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zelenin/yii2-semantic-ui.git",
+                "reference": "f3fb77fa896fcf409ba57999b9af77659f58998f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zelenin/yii2-semantic-ui/zipball/f3fb77fa896fcf409ba57999b9af77659f58998f",
+                "reference": "f3fb77fa896fcf409ba57999b9af77659f58998f",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/semantic": "~2",
+                "yiisoft/yii2": "~2"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "Zelenin\\yii\\SemanticUI\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksandr Zelenin",
+                    "email": "aleksandr@zelenin.me",
+                    "homepage": "http://zelenin.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Semantic UI extension for Yii2",
+            "homepage": "https://github.com/zelenin/yii2-semantic-ui",
+            "keywords": [
+                "semantic",
+                "semantic ui",
+                "widgets",
+                "yii2"
+            ],
+            "time": "2015-09-06 21:01:14"
         }
     ],
     "packages-dev": [
+        {
+            "name": "bower-asset/bootstrap",
+            "version": "v3.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16b48259a62f576e52c903c476bd42b90ab22482",
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.9.1"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "less/bootstrap.less",
+                    "dist/js/bootstrap.js"
+                ],
+                "bower-asset-ignore": [
+                    "/.*",
+                    "_config.yml",
+                    "CNAME",
+                    "composer.json",
+                    "CONTRIBUTING.md",
+                    "docs",
+                    "js/tests",
+                    "test-infra"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "keywords": [
+                "css",
+                "framework",
+                "front-end",
+                "js",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ]
+        },
         {
             "name": "bower-asset/typeahead.js",
             "version": "v0.11.1",
@@ -721,6 +756,56 @@
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
             "time": "2013-11-01 13:02:21"
+        },
+        {
+            "name": "yiisoft/yii2-bootstrap",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-bootstrap.git",
+                "reference": "5ae12770c69b1b42f1be742ca16d97dc63371eb8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/5ae12770c69b1b42f1be742ca16d97dc63371eb8",
+                "reference": "5ae12770c69b1b42f1be742ca16d97dc63371eb8",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
+                "yiisoft/yii2": ">=2.0.6"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                },
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\bootstrap\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com"
+                }
+            ],
+            "description": "The Twitter Bootstrap extension for the Yii framework",
+            "keywords": [
+                "bootstrap",
+                "yii2"
+            ],
+            "time": "2015-08-27 12:55:38"
         },
         {
             "name": "yiisoft/yii2-codeception",
