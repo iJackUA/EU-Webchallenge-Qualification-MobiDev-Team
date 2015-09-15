@@ -1,5 +1,5 @@
 module.exports = {
-    template: require('./component-q-slider.html'),
+    template: require('./component-q-textfield.html'),
 
     props: ['q'],
 
@@ -7,4 +7,3 @@ module.exports = {
         return {}
     }
 }
-

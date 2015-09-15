@@ -1,5 +1,5 @@
 module.exports = {
-    template: require('../tpl/component-q-text.html'),
+    template: require('./component-q-radio.html'),
 
     props: ['q'],
 
@@ -7,3 +7,4 @@ module.exports = {
         return {}
     }
 }
+

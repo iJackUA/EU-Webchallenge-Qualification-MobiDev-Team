@@ -1,5 +1,5 @@
 module.exports = {
-    template: require('./component-q-slider.html'),
+    template: require('./component-q-checkboxes.html'),
 
     props: ['q'],
 

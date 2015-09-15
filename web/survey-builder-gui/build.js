@@ -56,7 +56,7 @@
 	                title: 'Q TEXT',
 	                pos: 1,
 	                required: true,
-	                type: 'text',
+	                type: 'textfield',
 	                meta: {
 	                    placeholder: 'Some default placeholder'
 	                }
@@ -74,10 +74,82 @@
 	            }
 	        ]
 	    },
-	    methods: {},
 	    components: {
-	        'builder-q-slider': __webpack_require__(2),
-	        'builder-q-text': __webpack_require__(3)
+	        'builder-q-radio': __webpack_require__(2),
+	        'builder-q-checkboxes': __webpack_require__(4),
+	        'builder-q-textfield': __webpack_require__(6),
+	        'builder-q-slider': __webpack_require__(8)
+	    },
+	    methods: {
+	        defaultQuestion: function () {
+	            return {
+	                title: 'Question title',
+	                pos: 1,
+	                required: false,
+	                type: 'unknown',
+	                meta: {}
+	            };
+	        },
+	        addRadio: function () {
+	            var q = _.merge(
+	                this.defaultQuestion,
+	                {
+	                    type: 'radio',
+	                    meta: {
+	                        options: [
+	                            {
+	                                text: 'Radio button #1'
+	                            },
+	                            {
+	                                text: 'Radio button #2'
+	                            }
+	                        ]
+	                    }
+	                });
+	            return this.addQuestion(q);
+	        },
+	        addCheckboxes: function () {
+	            var q = _.merge(
+	                this.defaultQuestion,
+	                {
+	                    type: 'checkboxes',
+	                    meta: {
+	                        options: [
+	                            {
+	                                text: 'Checkbox #1'
+	                            }
+	                        ]
+	                    }
+	                });
+	            return this.addQuestion(q);
+	        },
+	        addTextfield: function () {
+	            var q = _.merge(
+	                this.defaultQuestion,
+	                {
+	                    type: 'textfield',
+	                    meta: {
+	                        placeholder: 'Some placeholder text'
+	                    }
+	                });
+	            return this.addQuestion(q);
+	        },
+	        addSlider: function () {
+	            var q = _.merge(
+	                this.defaultQuestion,
+	                {
+	                    type: 'slider',
+	                    meta: {
+	                        from: 1,
+	                        to: 10,
+	                        default: 5
+	                    }
+	                });
+	            return this.addQuestion(q);
+	        },
+	        addQuestion: function (q) {
+	            this.questions.push(q);
+	        },
 	    }
 	});
 
@@ -10231,7 +10303,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	    template: __webpack_require__(4),
+	    template: __webpack_require__(3),
 
 	    props: ['q'],
 
@@ -10244,6 +10316,12 @@
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"ui red inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    RADIO\n</div>\n\n";
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -10257,17 +10335,55 @@
 	}
 
 
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"ui yellow inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n\n    From: <input class=\"field\" type=\"text\" v-model=\"q.meta.from\">\n\n    To: <input class=\"field\" type=\"text\" v-model=\"q.meta.to\">\n\n    Default: <input class=\"field\" type=\"text\" v-model=\"q.meta.default\">\n</div>\n\n";
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"ui green inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    Text placeholder: <input class=\"field\" type=\"text\"\n                             v-model=\"q.meta.placeholder\"\n>\n</div>\n\n\n";
+	module.exports = "<div class=\"ui blue inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    Checkboxes\n</div>\n\n";
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+	    template: __webpack_require__(7),
+
+	    props: ['q'],
+
+	    data: function () {
+	        return {}
+	    }
+	}
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"ui green inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    Text placeholder: <input class=\"field\" type=\"text\"\n                             v-model=\"q.meta.placeholder\"\n>\n</div>\n\n\n";
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+	    template: __webpack_require__(9),
+
+	    props: ['q'],
+
+	    data: function () {
+	        return {}
+	    }
+	}
+
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"ui yellow inverted segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n    <input type=\"checkbox\" v-model=\"q.required\"> Required </br>\n\n    From: <input class=\"field\" type=\"text\" v-model=\"q.meta.from\">\n\n    To: <input class=\"field\" type=\"text\" v-model=\"q.meta.to\">\n\n    Default: <input class=\"field\" type=\"text\" v-model=\"q.meta.default\">\n</div>\n\n";
 
 /***/ }
 /******/ ]);

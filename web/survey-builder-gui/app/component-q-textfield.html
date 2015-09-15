@@ -3,6 +3,8 @@
                      v-model="q.title"
                      v-attr="placeholder: q.meta.placeholder"
 >
+    <input type="checkbox" v-model="q.required"> Required </br>
+
     Text placeholder: <input class="field" type="text"
                              v-model="q.meta.placeholder"
 >
