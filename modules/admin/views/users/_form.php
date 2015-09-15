@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use \Zelenin\yii\SemanticUI\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -19,14 +19,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'updatedAt')->textInput() ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'emailConfirmToken')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'passwordHash')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'passwordResetToken')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
