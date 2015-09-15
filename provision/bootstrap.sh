@@ -57,6 +57,11 @@ service php5-fpm restart
 cd /vagrant
 /bin/su -c 'composer update --prefer-dist --optimize-autoloader' vagrant
 
+# setup npm dependencies
+# and build static assets
+/bin/su -c 'npm install' vagrant
+/bin/su -c 'npm run-script build' vagrant
+
 # run migrations
 /bin/su -c './yii migrate --migrationPath=@yii/rbac/migrations --interactive=0' vagrant
 /bin/su -c './yii migrate --interactive=0' vagrant
