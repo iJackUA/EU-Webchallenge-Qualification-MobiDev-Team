@@ -57,6 +57,9 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Admin',
+            'layoutPath' => '@app/modules/admin/views/layouts',
+            'layout' => 'main',
+            'defaultRoute' => 'dashboard',
         ],
     ],
     'params' => $params,
