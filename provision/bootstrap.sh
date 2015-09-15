@@ -50,4 +50,5 @@ cd /vagrant
 /bin/su -c 'composer update --prefer-dist --optimize-autoloader' vagrant
 
 # run migrations
+/bin/su -c './yii migrate --migrationPath=@yii/rbac/migrations --interactive=0' vagrant
 /bin/su -c './yii migrate --interactive=0' vagrant

@@ -23,6 +23,9 @@ $config = [
                 //'<controller:[\w\-]+>/<action:[\w\-]+>/<id:\w+>' => '<controller>/<action>',
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
