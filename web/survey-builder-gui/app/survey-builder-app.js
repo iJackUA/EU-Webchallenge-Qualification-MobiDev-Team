@@ -8,6 +8,9 @@ var SurveyBuilderApp = new Vue({
     data: {
         questions: []
     },
+    ready: function () {
+        this.$on('removeQuestion', this.removeQuestion);
+    },
     components: {
         'builder-q-radio': require('./component-q-radio'),
         'builder-q-checkboxes': require('./component-q-checkboxes'),
@@ -88,6 +91,9 @@ var SurveyBuilderApp = new Vue({
         addQuestion: function (q) {
             this.questions.push(q);
         },
+        removeQuestion: function (q, index) {
+            this.questions.$remove(index);
+        }
     }
 });
 

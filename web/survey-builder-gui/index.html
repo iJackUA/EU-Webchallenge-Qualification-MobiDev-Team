@@ -43,21 +43,25 @@
 
             <builder-q-radio
                     q="{{@ q}}"
+                    position="{{$index}}"
                     v-if="q.type == 'radio'"
             ></builder-q-radio>
 
             <builder-q-checkboxes
                     q="{{@ q}}"
+                    position="{{$index}}"
                     v-if="q.type == 'checkboxes'"
             ></builder-q-checkboxes>
 
             <builder-q-textfield
                     q="{{@ q}}"
+                    position="{{$index}}"
                     v-if="q.type == 'textfield'"
             ></builder-q-textfield>
 
             <builder-q-slider
                     q="{{@ q}}"
+                    position="{{$index}}"
                     v-if="q.type == 'slider'"
             ></builder-q-slider>
 

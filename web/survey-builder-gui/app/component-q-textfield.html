@@ -5,6 +5,12 @@
 >
     <input type="checkbox" v-model="q.required"> Required </br>
 
+    <button class="ui inverted red button"
+            v-on="click:remove($index)">Remove question
+    </button>
+
+    </br>
+
     Text placeholder: <input class="field" type="text"
                              v-model="q.meta.placeholder"
 >

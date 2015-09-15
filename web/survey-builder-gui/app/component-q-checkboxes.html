@@ -9,6 +9,10 @@
             v-on="click:addOption">Add answer option
     </button>
 
+    <button class="ui inverted red button"
+            v-on="click:remove($index)">Remove question
+    </button>
+
     <ul class="radio">
         <li v-repeat="option in q.meta.options" v-transition="expand">
             <div class="ui action input fluid">
