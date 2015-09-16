@@ -63,6 +63,12 @@ $config = [
         ],
         'user' => [
             'class' => 'dektrium\user\Module',
+            'controllerMap' => [
+                'admin' => [
+                    'class'  => 'app\modules\admin\controllers\user\AdminController',
+                    'layout' => '@app/modules/admin/views/layouts/main',
+                ],
+            ],
         ],
     ],
     'params' => $params,
