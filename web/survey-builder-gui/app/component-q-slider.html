@@ -1,9 +1,13 @@
-<div class="ui yellow inverted segment">
+<div class="ui yellow segment">
     Question: <input class="field" type="text"
                      v-model="q.title"
                      v-attr="placeholder: q.meta.placeholder"
 >
-    <input type="checkbox" v-model="q.required"> Required </br>
+
+    <div class="ui checkbox">
+        <input type="checkbox" v-model="q.required">
+        <label>Required</label>
+    </div>
 
     <button class="ui inverted red button"
             v-on="click:remove($index)">Remove question
