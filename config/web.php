@@ -29,10 +29,10 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
+        /*'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
-        ],
+        ],*/
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -63,9 +63,10 @@ $config = [
         ],
         'user' => [
             'class' => 'dektrium\user\Module',
+            'admins' => ['admin'],
             'controllerMap' => [
                 'admin' => [
-                    'class'  => 'app\modules\admin\controllers\user\AdminController',
+                    'class'  => 'app\modules\admin\controllers\UsersController',
                     'layout' => '@app/modules/admin/views/layouts/main',
                 ],
             ],

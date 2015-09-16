@@ -15,7 +15,7 @@ curl -sL https://deb.nodesource.com/setup | sudo bash -
 # source /usr/local/rvm/scripts/rvm
 
 # now lets install it along with nginx
-apt-get -q -y install nodejs php5 php5-cli php5-fpm php5-pgsql nginx postgresql postgresql-contrib
+apt-get -q -y install nodejs php5 php5-cli php5-fpm php5-pgsql php5-curl php5-intl nginx postgresql postgresql-contrib
 
 # add rights to www-data user
 sudo usermod -a -G vagrant www-data
@@ -42,11 +42,11 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 /bin/su -c 'composer global require "fxp/composer-asset-plugin:~1.0.3"' vagrant
 
 # install pgadmin
-mkdir /opt/phpPgAdmin-5.1
-mkdir /opt/phppgadmin
-wget http://downloads.sourceforge.net/project/phppgadmin/phpPgAdmin%20%5Bstable%5D/phpPgAdmin-5.1/phpPgAdmin-5.1.tar.bz2 -O /tmp/phppgadmin.tar.bz2 && sudo tar jxf /tmp/phppgadmin.tar.bz2 -C /opt && rm /tmp/phppgadmin.tar.bz2
-mv /opt/phpPgAdmin-5.1/ /opt/phppgadmin
-cat /vagrant/provision/config/config.inc.php > /opt/phppgadmin/conf/config.inc.php
+# mkdir /opt/phpPgAdmin-5.1
+# mkdir /opt/phppgadmin
+# wget http://downloads.sourceforge.net/project/phppgadmin/phpPgAdmin%20%5Bstable%5D/phpPgAdmin-5.1/phpPgAdmin-5.1.tar.bz2 -O /tmp/phppgadmin.tar.bz2 && sudo tar jxf /tmp/phppgadmin.tar.bz2 -C /opt && rm /tmp/phppgadmin.tar.bz2
+# mv /opt/phpPgAdmin-5.1/ /opt/phppgadmin
+# cat /vagrant/provision/config/config.inc.php > /opt/phppgadmin/conf/config.inc.php
 
 # restart server
 /etc/init.d/nginx restart
