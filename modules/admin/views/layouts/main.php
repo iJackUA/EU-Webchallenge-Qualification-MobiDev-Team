@@ -39,6 +39,10 @@ AppAsset::register($this);
                                       'label' => 'Users',
                                       'url' => [Url::to(['/user/admin'])]
                                   ],
+                                  [
+                                      'label' => 'Surveys',
+                                      'url' => [Url::to(['survey/index'])]
+                                  ],
                               ],
                               'rightMenuItems' => [
                                   [
