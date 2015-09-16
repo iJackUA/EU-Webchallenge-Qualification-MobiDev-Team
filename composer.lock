@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "33d10500a68d2ff10ac335cfd65fa4db",
-    "content-hash": "ab4046210c135440244e8ec1e4063907",
+    "hash": "c9060ebc2509df675e2d9335914dbf03",
+    "content-hash": "2b56541b965a730d0cf7eb0d756e19a9",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -591,6 +591,93 @@
                 "yii2"
             ],
             "time": "2015-09-12 19:56:48"
+        },
+        {
+            "name": "mandrill/mandrill",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/mailchimp/mandrill-api-php.git",
+                "reference": "9f336b08ea148c80db3b694f3dc737cd4f414e19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/mailchimp/mandrill-api-php/get/9f336b08ea148c80db3b694f3dc737cd4f414e19.zip",
+                "reference": "9f336b08ea148c80db3b694f3dc737cd4f414e19",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mandrill": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Mandrill Devs",
+                    "email": "community@mandrill.com",
+                    "homepage": "http://mandrill.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "API client library for the Mandrill email as a service platform",
+            "homepage": "https://bitbucket.org/mailchimp/mandrill-api-php",
+            "keywords": [
+                "api",
+                "email"
+            ],
+            "time": "2014-10-16 21:08:20"
+        },
+        {
+            "name": "nickcv/yii2-mandrill",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nickcv-ln/yii2-mandrill.git",
+                "reference": "7acea8c85e5bcb98251ca064931aa51186b1f258"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nickcv-ln/yii2-mandrill/zipball/7acea8c85e5bcb98251ca064931aa51186b1f258",
+                "reference": "7acea8c85e5bcb98251ca064931aa51186b1f258",
+                "shasum": ""
+            },
+            "require": {
+                "mandrill/mandrill": "*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "nickcv\\mandrill\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Puddu",
+                    "email": "n.puddu@outlook.com"
+                }
+            ],
+            "description": "Mandrill Api Integration for Yii2",
+            "keywords": [
+                "email",
+                "extension",
+                "mailer",
+                "mandrill",
+                "yii2"
+            ],
+            "time": "2015-08-21 11:04:18"
         },
         {
             "name": "swiftmailer/swiftmailer",

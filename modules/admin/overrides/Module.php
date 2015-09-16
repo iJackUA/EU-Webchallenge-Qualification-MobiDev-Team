@@ -18,5 +18,4 @@ use dektrium\rbac\Module as BaseModule;
 class Module extends BaseModule
 {
     use AdminBehavior;
-
 }
