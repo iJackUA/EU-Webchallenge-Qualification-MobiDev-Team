@@ -1,8 +1,8 @@
 module.exports = {
-    entry: "./web/survey-builder-gui/app/survey-builder-app.js",
+    entry: "./web/survey-builder/app/survey-builder-app.js",
     output: {
-        path: "./web/survey-builder-gui",
-        publicPath: "/web/survey-builder-gui/",
+        path: "./web/survey-builder",
+        publicPath: "/web/survey-builder/",
         filename: "build.js"
     },
     module: {

@@ -1,7 +1,9 @@
 var g = require('./global');
 var Vue = require('../vendor/vue');
 Vue.config.debug = true;
-//Vue.use(require('../vendor/vue-resource'));
+Vue.use(require('../vendor/vue-resource.min'));
+Vue.http.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+
 
 var SurveyBuilderApp = new Vue({
     el: '#survey-builder',
@@ -93,6 +95,15 @@ var SurveyBuilderApp = new Vue({
         },
         removeQuestion: function (q, index) {
             this.questions.$remove(index);
+        },
+        saveSurvey: function () {
+            this.$http.post('/admin/survey/save?id=1', JSON.stringify(dbgApp.questions),
+                function (data, status, request) {
+                    alert('Saved!');
+                }).error(function (data, status, request) {
+                alert('Error!');
+                console.log(data, status);
+            })
         }
     }
 });

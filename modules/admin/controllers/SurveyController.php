@@ -90,6 +90,11 @@ class SurveyController extends Controller
         }
     }
 
+    public function actionSave($id)
+    {
+        die('AAAAAAAAAAAAAA');
+    }
+
     /**
      * Deletes an existing Survey model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

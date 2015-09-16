@@ -12,6 +12,14 @@ li {
     padding: 5px;
 }
 
+ul.questions {
+    padding-left: 0;
+}
+
+ul.questions li {
+    list-style-type: none;
+}
+
 ul.radio {
     padding-left: 0;
 }
