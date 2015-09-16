@@ -20,7 +20,8 @@
         "zelenin/yii2-semantic-ui": "~2",
         "yiisoft/yii2-jui": "~2.0",
         "yiisoft/yii2-bootstrap": "~2.0",
-        "dektrium/yii2-user": "0.9.4"
+        "dektrium/yii2-user": "0.9.4",
+        "dektrium/yii2-rbac": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

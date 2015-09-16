@@ -38,15 +38,8 @@ cat /vagrant/provision/config/php.ini > /etc/php5/php.ini
 # TODO: delete oauth token after qualification
 # install composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-/bin/su -c 'composer config -g github-oauth.github.com  4fe8f8d8f8f57d16e31a331633d0ccaf53cc20c2' vagrant
+/bin/su -c 'composer config -g github-oauth.github.com  2fc38a59f6c4be83efe22293f70a858c3ca1dd65' vagrant
 /bin/su -c 'composer global require "fxp/composer-asset-plugin:~1.0.3"' vagrant
-
-# install pgadmin
-# mkdir /opt/phpPgAdmin-5.1
-# mkdir /opt/phppgadmin
-# wget http://downloads.sourceforge.net/project/phppgadmin/phpPgAdmin%20%5Bstable%5D/phpPgAdmin-5.1/phpPgAdmin-5.1.tar.bz2 -O /tmp/phppgadmin.tar.bz2 && sudo tar jxf /tmp/phppgadmin.tar.bz2 -C /opt && rm /tmp/phppgadmin.tar.bz2
-# mv /opt/phpPgAdmin-5.1/ /opt/phppgadmin
-# cat /vagrant/provision/config/config.inc.php > /opt/phppgadmin/conf/config.inc.php
 
 # restart server
 /etc/init.d/nginx restart
@@ -64,5 +57,8 @@ cd /vagrant
 
 # run migrations
 /bin/su -c './yii migrate --migrationPath=@vendor/dektrium/yii2-user/migrations --interactive=0' vagrant
-#/bin/su -c './yii migrate --migrationPath=@yii/rbac/migrations --interactive=0' vagrant
-#/bin/su -c './yii migrate --interactive=0' vagrant
+/bin/su -c './yii migrate --migrationPath=@yii/rbac/migrations --interactive=0' vagrant
+/bin/su -c './yii migrate --interactive=0' vagrant
+
+# create admin user
+/bin/su -c './yii init' vagrant

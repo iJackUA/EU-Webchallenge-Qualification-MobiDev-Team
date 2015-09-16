@@ -5,8 +5,8 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use Zelenin\yii\SemanticUI\collections\Menu;
-use Zelenin\yii\SemanticUI\Elements;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
@@ -24,68 +24,32 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="ui container">
-        <?php
-        echo Menu::widget([
-                              'items' => [
-                                  [
-                                      'label' => 'Home',
-                                      'url' => [Yii::$app->homeUrl]
-                                  ],
-                                  [
-                                      'label' => 'Manage:'
-                                  ],
-                                  [
-                                      'label' => 'Users',
-                                      'url' => [Url::to(['/user/admin'])]
-                                  ],
-                                  [
-                                      'label' => 'Surveys',
-                                      'url' => [Url::to(['survey/index'])]
-                                  ],
-                              ],
-                              'rightMenuItems' => [
-                                  [
-                                      'label' => Elements::input(\yii\helpers\Html::input('text', null, null, ['placeholder' => 'search'])),
-                                      'encode' => false
-                                  ],
-                                  [
-                                      'label' => 'Logout',
-                                      'url' => ['/logout']
-                                  ],
-                              ]
-                          ]);
-        ?>
-</div>
-
 <div class="wrap">
-    <div class="ui container">
     <?php
-    //    NavBar::begin([
-    //                      'brandLabel' => 'My Company',
-    //                      'brandUrl' => Yii::$app->homeUrl,
-    //                      'options' => [
-    //                          'class' => 'navbar-inverse navbar-fixed-top',
-    //                      ],
-    //                  ]);
-    //    echo Nav::widget([
-    //                         'options' => ['class' => 'navbar-nav navbar-right'],
-    //                         'items' => [
-    //                             ['label' => 'Home', 'url' => ['/site/index']],
-    //                             ['label' => 'About', 'url' => ['/site/about']],
-    //                             ['label' => 'Contact', 'url' => ['/site/contact']],
-    //                             Yii::$app->user->isGuest ?
-    //                                 ['label' => 'Login', 'url' => ['/site/login']] :
-    //                                 [
-    //                                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-    //                                     'url' => ['/site/logout'],
-    //                                     'linkOptions' => ['data-method' => 'post']
-    //                                 ],
-    //                         ],
-    //                     ]);
-    //    NavBar::end();
+    NavBar::begin([
+                      'brandLabel' => 'Admin Panel',
+                      'brandUrl' => Yii::$app->homeUrl,
+                      'options' => [
+                          'class' => 'navbar-inverse navbar-fixed-top',
+                      ],
+                  ]);
+    echo Nav::widget([
+                         'options' => ['class' => 'navbar-nav navbar-right'],
+                         'items' => [
+                             Yii::$app->user->isGuest ?
+                                 ['label' => 'Login', 'url' => ['/user/login']] :
+                                 [
+                                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                                     'url' => ['/user/security/logout'],
+                                     'linkOptions' => ['data-method' => 'post']
+                                 ],
+                         ],
+                     ]);
+    NavBar::end();
     ?>
-    <?= $content ?>
+
+    <div class="ui container">
+        <?= $content ?>
     </div>
 
     <div class="ui inverted vertical footer segment form-page">

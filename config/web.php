@@ -18,9 +18,6 @@ $config = [
             'rules' => [
                 '<controller:[\w\-]+>/<action:[\w\-]+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:[\w\-]+>/<id:\d+>' => '<controller>/view',
-                //'<controller:[\w\-]+>/<action:[\w\-]+>' => '<controller>/<action>',
-                //'<module:[\w\-]+>/<controller:[\w\-]+>/<action:[\w\-]+>' => '<module>/<controller>/<action>',
-                //'<controller:[\w\-]+>/<action:[\w\-]+>/<id:\w+>' => '<controller>/<action>',
             ],
         ],
         'authManager' => [
@@ -29,10 +26,6 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        /*'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-        ],*/
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -63,10 +56,23 @@ $config = [
         ],
         'user' => [
             'class' => 'dektrium\user\Module',
-            'admins' => ['admin'],
             'controllerMap' => [
                 'admin' => [
                     'class'  => 'app\modules\admin\controllers\UsersController',
+                    'layout' => '@app/modules/admin/views/layouts/main',
+                ],
+            ],
+        ],
+        'rbac' => [
+            'class' => 'app\modules\admin\overrides\Module',
+            'basePath' => '@app/vendor/dektrium/yii2-rbac',
+            'controllerMap' => [
+                'role' => [
+                    'class'  => 'app\modules\admin\controllers\RoleController',
+                    'layout' => '@app/modules/admin/views/layouts/main',
+                ],
+                'permission' => [
+                    'class'  => 'app\modules\admin\controllers\PermissionController',
                     'layout' => '@app/modules/admin/views/layouts/main',
                 ],
             ],

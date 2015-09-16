@@ -5,25 +5,24 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\Survey;
 use app\models\SearchSurvey;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * SurveyController implements the CRUD actions for Survey model.
  */
-class SurveyController extends Controller
+class SurveyController extends BaseController
 {
     public function behaviors()
     {
-        return [
+        return array_merge_recursive(parent::behaviors(), [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
-        ];
+        ]);
     }
 
     /**
