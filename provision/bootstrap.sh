@@ -38,7 +38,7 @@ cat /vagrant/provision/config/php.ini > /etc/php5/php.ini
 # TODO: delete oauth token after qualification
 # install composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-/bin/su -c 'composer config -g github-oauth.github.com  2fc38a59f6c4be83efe22293f70a858c3ca1dd65' vagrant
+/bin/su -c 'composer config -g github-oauth.github.com  53dfb543b41b26635ede81450247d94f5eb8a346' vagrant
 /bin/su -c 'composer global require "fxp/composer-asset-plugin:~1.0.3"' vagrant
 
 # restart server
