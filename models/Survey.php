@@ -10,4 +10,9 @@ class Survey extends SurveyGii
     {
         $this->hasMany(Question::className(), ['survey_id' => 'id']);
     }
+
+    public function getParticipants()
+    {
+        $this->hasMany(Participant::className(), ['survey_id' => 'id']);
+    }
 }
