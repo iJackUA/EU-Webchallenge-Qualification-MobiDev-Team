@@ -22,6 +22,7 @@
         "yiisoft/yii2-bootstrap": "~2.0",
         "dektrium/yii2-user": "0.9.4",
         "dektrium/yii2-rbac": "dev-master",
+        "kartik-v/yii2-slider": "dev-master",
         "nickcv/yii2-mandrill": "*",
         "league/fractal": "^0.12.0"
     },

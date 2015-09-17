@@ -19,6 +19,7 @@ class AnswerController extends Controller
         $survey = $this->findSurvey($id);
         return $this->render('new', [
             'survey' => $survey,
+            'i' => 0
         ]);
     }
 
