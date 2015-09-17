@@ -54,6 +54,11 @@
 	var SurveyBuilderApp = new Vue({
 	    el: '#survey-builder',
 	    data: {
+	        title: null,
+	        desc: null,
+	        emails: null,
+	        startDate: null,
+	        expireDate: null,
 	        questions: []
 	    },
 	    ready: function () {
@@ -64,6 +69,11 @@
 	        'builder-q-checkboxes': __webpack_require__(7),
 	        'builder-q-textfield': __webpack_require__(9),
 	        'builder-q-slider': __webpack_require__(11)
+	    },
+	    computed: {
+	        questionsExists: function () {
+	            return !_.isEmpty(this.questions);
+	        }
 	    },
 	    methods: {
 	        defaultQuestion: function () {
@@ -143,11 +153,11 @@
 	            this.questions.$remove(index);
 	        },
 	        saveSurvey: function () {
-	            this.$http.post('/admin/survey/save?id=1', JSON.stringify(dbgApp.questions),
+	            this.$http.post('/survey/save-new', JSON.stringify(this.$data),
 	                function (data, status, request) {
-	                    alert('Saved!');
+
 	                }).error(function (data, status, request) {
-	                alert('Error!');
+	                alert('Error');
 	                console.log(data, status);
 	            })
 	        }

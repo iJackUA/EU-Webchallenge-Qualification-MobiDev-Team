@@ -11,6 +11,9 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'ioaOg5HW-J_COTFeD93N3xZ060zZQVyK',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -63,7 +66,7 @@ $config = [
             'class' => 'dektrium\user\Module',
             'controllerMap' => [
                 'admin' => [
-                    'class'  => 'app\modules\admin\controllers\UsersController',
+                    'class' => 'app\modules\admin\controllers\UsersController',
                     'layout' => '@app/modules/admin/views/layouts/main',
                 ],
             ],
@@ -73,11 +76,11 @@ $config = [
             'basePath' => '@app/vendor/dektrium/yii2-rbac',
             'controllerMap' => [
                 'role' => [
-                    'class'  => 'app\modules\admin\controllers\RoleController',
+                    'class' => 'app\modules\admin\controllers\RoleController',
                     'layout' => '@app/modules/admin/views/layouts/main',
                 ],
                 'permission' => [
-                    'class'  => 'app\modules\admin\controllers\PermissionController',
+                    'class' => 'app\modules\admin\controllers\PermissionController',
                     'layout' => '@app/modules/admin/views/layouts/main',
                 ],
             ],

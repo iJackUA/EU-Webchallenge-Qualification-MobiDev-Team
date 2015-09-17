@@ -35,20 +35,20 @@ cat /vagrant/provision/config/default.conf > /etc/nginx/sites-available/default
 cat /vagrant/provision/config/phppgadmin.conf > /etc/nginx/sites-available/phppgadmin
 cat /vagrant/provision/config/php.ini > /etc/php5/php.ini
 
-## TODO: delete oauth token after qualification
-## install composer
-#curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-#/bin/su -c 'composer config -g github-oauth.github.com  2fc38a59f6c4be83efe22293f70a858c3ca1dd65' vagrant
-#/bin/su -c 'composer global require "fxp/composer-asset-plugin:~1.0.3"' vagrant
+# TODO: delete oauth token after qualification
+# install composer
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+/bin/su -c 'composer config -g github-oauth.github.com  53dfb543b41b26635ede81450247d94f5eb8a346' vagrant
+/bin/su -c 'composer global require "fxp/composer-asset-plugin:~1.0.3"' vagrant
 
 # restart server
 /etc/init.d/nginx restart
 service php5-fpm restart
 
 # setup app
+# run composer update
 cd /vagrant
-##run composer update
-#/bin/su -c 'composer update --prefer-dist --optimize-autoloader' vagrant
+/bin/su -c 'composer update --prefer-dist --optimize-autoloader' vagrant
 
 # setup npm dependencies
 # and build static assets

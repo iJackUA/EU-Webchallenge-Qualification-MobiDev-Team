@@ -1,27 +1,39 @@
 <?php
 
-namespace app\modules\admin\controllers;
+namespace app\controllers;
 
+use app\models\Question;
 use Yii;
 use app\models\Survey;
 use app\models\SearchSurvey;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\Controller;
 
 /**
  * SurveyController implements the CRUD actions for Survey model.
  */
-class SurveyController extends BaseController
+class SurveyController extends Controller
 {
     public function behaviors()
     {
         return array_merge_recursive(parent::behaviors(), [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-            ],
+            ]
         ]);
     }
 
@@ -89,9 +101,31 @@ class SurveyController extends BaseController
         }
     }
 
-    public function actionSave($id)
+    public function actionSaveNew()
     {
-        die('AAAAAAAAAAAAAA');
+        $questions = Yii::$app->request->getBodyParam('questions');
+        $q = null;
+
+        $survey = new Survey();
+        $survey->title = Yii::$app->request->getBodyParam('title');
+        $survey->desc = Yii::$app->request->getBodyParam('desc');
+        $survey->startDate = Yii::$app->request->getBodyParam('startDate');
+        $survey->expireDate = Yii::$app->request->getBodyParam('expireDate');
+        $survey->save();
+
+        if (count($questions) > 0) {
+            $qData = $questions[0];
+
+            $q = new Question();
+            $q->title = $qData['title'];
+            $q->meta = json_encode($qData['meta']);
+            $q->survey_id = $survey->id;
+            $q->save();
+
+            print_r($q->getErrors());
+        }
+
+
     }
 
     /**
