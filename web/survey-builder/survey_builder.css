@@ -12,6 +12,10 @@ li {
     padding: 5px;
 }
 
+html {
+    font-size: 14px !important;
+}
+
 ul.questions {
     padding-left: 0;
 }

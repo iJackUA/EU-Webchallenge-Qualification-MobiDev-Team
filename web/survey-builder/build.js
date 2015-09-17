@@ -54,8 +54,8 @@
 	var SurveyBuilderApp = new Vue({
 	    el: '#survey-builder',
 	    data: {
-	        title: null,
-	        desc: null,
+	        title: 'My new survey',
+	        desc: 'Survey description...',
 	        emails: null,
 	        startDate: null,
 	        expireDate: null,
@@ -10619,7 +10619,7 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"ui red segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n\n    <div class=\"ui checkbox\">\n        <input type=\"checkbox\" v-model=\"q.required\">\n        <label>Required</label>\n    </div>\n\n    <button class=\"ui inverted green button\"\n            v-on=\"click:addOption\">Add answer option\n    </button>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove\">Remove question\n    </button>\n\n    <ul class=\"radio\">\n        <li v-repeat=\"option in q.meta.options\" v-transition=\"expand\">\n            <div class=\"ui action input fluid\">\n                <input class=\"field\" type=\"text\"\n                       v-model=\"option.text\"\n                >\n                <button class=\"ui inverted red button icon\"\n                        v-on=\"click:removeOption(option)\">\n                    <i class=\"remove icon\"></i>\n                </button>\n            </div>\n        </li>\n    </ul>\n\n</div>\n\n";
+	module.exports = "<div class=\"ui red segment\">\n    Radio Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n\n    <div class=\"ui checkbox\">\n        <input type=\"checkbox\" v-model=\"q.required\">\n        <label>Required</label>\n    </div>\n\n    <button class=\"ui inverted green button\"\n            v-on=\"click:addOption\">Add answer option\n    </button>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove\">Remove question\n    </button>\n\n    <ul class=\"radio\">\n        <li v-repeat=\"option in q.meta.options\" v-transition=\"expand\">\n            <div class=\"ui action input fluid\">\n                <input class=\"field\" type=\"text\"\n                       v-model=\"option.text\"\n                >\n                <button class=\"ui inverted red button icon\"\n                        v-on=\"click:removeOption(option)\">\n                    <i class=\"remove icon\"></i>\n                </button>\n            </div>\n        </li>\n    </ul>\n\n</div>\n\n";
 
 /***/ },
 /* 7 */
@@ -10658,7 +10658,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"ui blue segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n\n    <div class=\"ui checkbox\">\n        <input type=\"checkbox\" v-model=\"q.required\">\n        <label>Required</label>\n    </div>\n\n    <button class=\"ui inverted green button\"\n            v-on=\"click:addOption\">Add answer option\n    </button>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove($index)\">Remove question\n    </button>\n\n    <ul class=\"radio\">\n        <li v-repeat=\"option in q.meta.options\" v-transition=\"expand\">\n            <div class=\"ui action input fluid\">\n                <input class=\"field\" type=\"text\"\n                       v-model=\"option.text\"\n                >\n                <button class=\"ui inverted red button icon\"\n                        v-on=\"click:removeOption(option)\">\n                    <i class=\"remove icon\"></i>\n                </button>\n            </div>\n        </li>\n    </ul>\n</div>\n\n";
+	module.exports = "<div class=\"ui blue segment\">\n    Checkbox Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n\n    <div class=\"ui checkbox\">\n        <input type=\"checkbox\" v-model=\"q.required\">\n        <label>Required</label>\n    </div>\n\n    <button class=\"ui inverted green button\"\n            v-on=\"click:addOption\">Add answer option\n    </button>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove($index)\">Remove question\n    </button>\n\n    <ul class=\"radio\">\n        <li v-repeat=\"option in q.meta.options\" v-transition=\"expand\">\n            <div class=\"ui action input fluid\">\n                <input class=\"field\" type=\"text\"\n                       v-model=\"option.text\"\n                >\n                <button class=\"ui inverted red button icon\"\n                        v-on=\"click:removeOption(option)\">\n                    <i class=\"remove icon\"></i>\n                </button>\n            </div>\n        </li>\n    </ul>\n</div>\n\n";
 
 /***/ },
 /* 9 */
@@ -10684,7 +10684,7 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"ui green segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n\n    <div class=\"ui checkbox\">\n        <input type=\"checkbox\" v-model=\"q.required\">\n        <label>Required</label>\n    </div>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove($index)\">Remove question\n    </button>\n\n    </br>\n\n    Text placeholder: <input class=\"field\" type=\"text\"\n                             v-model=\"q.meta.placeholder\"\n>\n</div>\n\n\n";
+	module.exports = "<div class=\"ui green segment\">\n    Textfield Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n\n    <div class=\"ui checkbox\">\n        <input type=\"checkbox\" v-model=\"q.required\">\n        <label>Required</label>\n    </div>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove($index)\">Remove question\n    </button>\n\n    </br>\n\n    Text placeholder: <input class=\"field\" type=\"text\"\n                             v-model=\"q.meta.placeholder\"\n>\n</div>\n\n\n";
 
 /***/ },
 /* 11 */
@@ -10711,7 +10711,7 @@
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"ui yellow segment\">\n    Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n\n    <div class=\"ui checkbox\">\n        <input type=\"checkbox\" v-model=\"q.required\">\n        <label>Required</label>\n    </div>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove($index)\">Remove question\n    </button>\n\n    <div class=\"fields\">\n        <div class=\"six wide field\">\n            <label>From</label>\n            <input type=\"text\" v-model=\"q.meta.from\">\n        </div>\n        <div class=\"six wide field\">\n            <label>To</label>\n            <input type=\"text\" v-model=\"q.meta.to\">\n        </div>\n        <div class=\"four wide field\">\n            <label>Defualt</label>\n            <input type=\"text\" v-model=\"q.meta.default\">\n        </div>\n    </div>\n\n\n</div>\n\n";
+	module.exports = "<div class=\"ui yellow segment\">\n    Slider Question: <input class=\"field\" type=\"text\"\n                     v-model=\"q.title\"\n                     v-attr=\"placeholder: q.meta.placeholder\"\n>\n\n    <div class=\"ui checkbox\">\n        <input type=\"checkbox\" v-model=\"q.required\">\n        <label>Required</label>\n    </div>\n\n    <button class=\"ui inverted red button\"\n            v-on=\"click:remove($index)\">Remove question\n    </button>\n\n    <div class=\"fields\">\n        <div class=\"six wide field\">\n            <label>From</label>\n            <input type=\"text\" v-model=\"q.meta.from\">\n        </div>\n        <div class=\"six wide field\">\n            <label>To</label>\n            <input type=\"text\" v-model=\"q.meta.to\">\n        </div>\n        <div class=\"four wide field\">\n            <label>Defualt</label>\n            <input type=\"text\" v-model=\"q.meta.default\">\n        </div>\n    </div>\n\n\n</div>\n\n";
 
 /***/ }
 /******/ ]);

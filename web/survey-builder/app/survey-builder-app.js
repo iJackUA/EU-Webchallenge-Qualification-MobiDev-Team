@@ -8,8 +8,8 @@ Vue.http.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('conte
 var SurveyBuilderApp = new Vue({
     el: '#survey-builder',
     data: {
-        title: null,
-        desc: null,
+        title: 'My new survey',
+        desc: 'Survey description...',
         emails: null,
         startDate: null,
         expireDate: null,

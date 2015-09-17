@@ -16,6 +16,7 @@ use Yii;
  * @property string $meta
  * @property string $created_at
  * @property string $updated_at
+ * @property string $uuid
  */
 class QuestionGii extends \yii\db\ActiveRecord
 {
@@ -34,8 +35,8 @@ class QuestionGii extends \yii\db\ActiveRecord
     {
         return [
             [['survey_id'], 'required'],
-            [['survey_id', 'type', 'position'], 'integer'],
-            [['title'], 'string'],
+            [['survey_id', 'position'], 'integer'],
+            [['title', 'uuid', 'type'], 'string'],
             [['required'], 'boolean'],
             [['created_at', 'updated_at', 'meta'], 'safe'],
         ];

@@ -6,6 +6,7 @@ use app\models\Question;
 use Yii;
 use app\models\Survey;
 use app\models\SearchSurvey;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -39,6 +40,7 @@ class SurveyController extends Controller
 
     /**
      * Lists all Survey models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -54,6 +56,7 @@ class SurveyController extends Controller
 
     /**
      * Displays a single Survey model.
+     *
      * @param integer $id
      * @return mixed
      */
@@ -67,6 +70,7 @@ class SurveyController extends Controller
     /**
      * Creates a new Survey model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -85,6 +89,7 @@ class SurveyController extends Controller
     /**
      * Updates an existing Survey model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      */
@@ -104,33 +109,35 @@ class SurveyController extends Controller
     public function actionSaveNew()
     {
         $questions = Yii::$app->request->getBodyParam('questions');
-        $q = null;
 
         $survey = new Survey();
         $survey->title = Yii::$app->request->getBodyParam('title');
         $survey->desc = Yii::$app->request->getBodyParam('desc');
         $survey->startDate = Yii::$app->request->getBodyParam('startDate');
         $survey->expireDate = Yii::$app->request->getBodyParam('expireDate');
+        $survey->createdBy = Yii::$app->user->id;
         $survey->save();
 
         if (count($questions) > 0) {
-            $qData = $questions[0];
-
-            $q = new Question();
-            $q->title = $qData['title'];
-            $q->meta = json_encode($qData['meta']);
-            $q->survey_id = $survey->id;
-            $q->save();
-
-            print_r($q->getErrors());
+            foreach ($questions as $key => $val) {
+                $q = new Question();
+                $q->title = ArrayHelper::getValue($val, 'title');
+                $q->required = ArrayHelper::getValue($val, 'required');
+                $q->position = ArrayHelper::getValue($val, 'pos');
+                $q->uuid = ArrayHelper::getValue($val, 'uuid');
+                $q->type = ArrayHelper::getValue($val, 'type');
+                $q->meta = json_encode(ArrayHelper::getValue($val, 'meta'));
+                $q->survey_id = $survey->id;
+                $q->save();
+            }
         }
-
 
     }
 
     /**
      * Deletes an existing Survey model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      */
@@ -144,6 +151,7 @@ class SurveyController extends Controller
     /**
      * Finds the Survey model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Survey the loaded model
      * @throws NotFoundHttpException if the model cannot be found
