@@ -23,4 +23,17 @@ class Survey extends SurveyGii
     {
         $this->hasMany(Question::className(), ['survey_id' => 'id']);
     }
+
+    public function getParticipants()
+    {
+        $this->hasMany(Participant::className(), ['survey_id' => 'id']);
+    }
+
+    public function isActive(){
+        if (strtotime($this->startDate) <= time() && time() <= strtotime($this->expireDate)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

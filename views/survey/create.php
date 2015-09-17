@@ -10,6 +10,9 @@ $this->title = 'Create Survey';
 $this->params['breadcrumbs'][] = ['label' => 'Surveys', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+    html { font-size: 14px; }
+</style>
 <div class="survey-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
