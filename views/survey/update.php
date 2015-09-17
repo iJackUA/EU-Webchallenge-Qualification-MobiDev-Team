@@ -10,6 +10,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Surveys', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
+<style>
+    html { font-size: 14px; }
+</style>
 <div class="survey-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
