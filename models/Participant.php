@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\components\EmailSender;
 use app\models\gii\ParticipantGii;
 
 class Participant extends ParticipantGii
@@ -12,5 +13,11 @@ class Participant extends ParticipantGii
     public function getSurvey()
     {
         return $this->hasOne(Survey::className(), ['id' => 'survey_id']);
+    }
+
+    public function sendEmail()
+    {
+        $sender = new EmailSender($this);
+        return $sender->send();
     }
 }
