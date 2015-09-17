@@ -32,4 +32,10 @@ class Participant extends ParticipantGii
         $sender = new EmailSender($this);
         return $sender->send();
     }
+
+    public static function getByCode($code){
+        return self::find()
+            ->where(['secretCode' => $code])
+            ->one();
+    }
 }
