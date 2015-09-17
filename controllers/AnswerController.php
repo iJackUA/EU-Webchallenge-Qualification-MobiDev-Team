@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\Survey;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class AnswerController extends Controller
 {
@@ -14,8 +16,18 @@ class AnswerController extends Controller
      */
     public function actionNew($id)
     {
+        $survey = $this->findSurvey($id);
         return $this->render('new', [
-            //'model' => $this->findModel($id),
+            'survey' => $survey,
         ]);
+    }
+
+    protected function findSurvey($id)
+    {
+        if (($model = Survey::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 }
