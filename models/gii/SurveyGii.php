@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $title
  * @property string $desc
+ * @property string $emails
  * @property string $startDate
  * @property string $sendDate
  * @property string $expireDate
@@ -34,7 +35,7 @@ class SurveyGii extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['title', 'desc'], 'string'],
+            [['title', 'desc', 'emails'], 'string'],
             [['startDate', 'sendDate', 'expireDate', 'created_at', 'updated_at'], 'safe'],
             [['createdBy'], 'integer'],
         ];

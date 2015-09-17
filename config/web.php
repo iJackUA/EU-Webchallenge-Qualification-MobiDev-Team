@@ -6,7 +6,7 @@ $config = [
     'id' => 'basic',
     'name' => 'MobiDev eBook',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'gon'],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -54,6 +54,9 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        'gon' => [
+            'class' => 'app\components\GonComponent',
+        ],
     ],
     'modules' => [
         'admin' => [

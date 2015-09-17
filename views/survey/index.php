@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\SerialColumn'],
 
                 'id',
-                'title:ntext',
                 [
                     'attribute' => 'title',
                     'value' => function ($model, $key, $index, $column) {
@@ -38,8 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'desc:ntext',
                 'startDate',
-                'sendDate',
-                // 'expireDate',
+                'expireDate',
                 // 'createdBy',
                 // 'created_at',
                 // 'updated_at',

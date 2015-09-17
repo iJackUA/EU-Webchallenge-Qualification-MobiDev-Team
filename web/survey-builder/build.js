@@ -63,6 +63,10 @@
 	    },
 	    ready: function () {
 	        this.$on('removeQuestion', this.removeQuestion);
+
+	        if (window.gon.survey) {
+	            this.$set('$data', _.clone(window.gon.survey, true));
+	        }
 	    },
 	    components: {
 	        'builder-q-radio': __webpack_require__(5),
@@ -80,7 +84,7 @@
 	            return {
 	                uuid: g.makeUUID(),
 	                title: 'Question title',
-	                pos: 1,
+	                position: 1,
 	                required: false,
 	                type: 'unknown',
 	                meta: {}
@@ -153,9 +157,9 @@
 	            this.questions.$remove(index);
 	        },
 	        saveSurvey: function () {
-	            this.$http.post('/survey/save-new', JSON.stringify(this.$data),
+	            this.$http.post(window.gon.saveSurveyUrl, JSON.stringify(this.$data),
 	                function (data, status, request) {
-
+	                    window.location.href = window.gon.afterSaveSurveyRedirectUrl;
 	                }).error(function (data, status, request) {
 	                alert('Error');
 	                console.log(data, status);

@@ -21,12 +21,12 @@ class Survey extends SurveyGii
 
     public function getQuestions()
     {
-        $this->hasMany(Question::className(), ['survey_id' => 'id']);
+        return $this->hasMany(Question::className(), ['survey_id' => 'id']);
     }
 
     public function getParticipants()
     {
-        $this->hasMany(Participant::className(), ['survey_id' => 'id']);
+        return $this->hasMany(Participant::className(), ['survey_id' => 'id']);
     }
 
     public function isActive(){

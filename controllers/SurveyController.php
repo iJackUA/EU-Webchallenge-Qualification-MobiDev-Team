@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\lib\ArraySerializer;
 use app\models\Question;
 use Yii;
 use app\models\Survey;
@@ -11,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use League\Fractal;
 
 /**
  * SurveyController implements the CRUD actions for Survey model.
@@ -77,6 +79,9 @@ class SurveyController extends Controller
     {
         $model = new Survey();
 
+        Yii::$app->gon->send('saveSurveyUrl', '/survey/save-new');
+        Yii::$app->gon->send('afterSaveSurveyRedirectUrl', \Yii::$app->getUser()->getReturnUrl());
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -95,15 +100,48 @@ class SurveyController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $survey = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        $fractal = new Fractal\Manager();
+        $fractal->setSerializer(new ArraySerializer());
+
+        $questionItems = new Fractal\Resource\Collection($survey->questions, function (Question $q) {
+            return [
+                'title' => $q->title,
+                'required' => $q->required,
+                'position' => $q->position,
+                'uuid' => $q->uuid,
+                'type' => $q->type,
+                'meta' => json_decode($q->meta),
+                'survey_id' => $q->survey_id
+            ];
+        });
+
+        $surveyItem = new Fractal\Resource\Item($survey, function (Survey $survey) use ($fractal, $questionItems) {
+            return [
+                'title' => $survey->title,
+                'desc' => $survey->desc,
+                'emails' => $survey->emails,
+                'startDate' => $survey->startDate,
+                'expireDate' => $survey->expireDate,
+                'questions' => $fractal->createData($questionItems)->toArray()
+            ];
+        });
+
+
+        Yii::$app->gon->send('survey', $fractal->createData($surveyItem)->toArray());
+        Yii::$app->gon->send('saveSurveyUrl', '/survey/save-update');
+        Yii::$app->gon->send('afterSaveSurveyRedirectUrl', \Yii::$app->getUser()->getReturnUrl());
+
+        return $this->render('update', [
+            'model' => $survey,
+        ]);
+
+    }
+
+    public function actionSaveUpdate()
+    {
+
     }
 
     public function actionSaveNew()
@@ -123,7 +161,7 @@ class SurveyController extends Controller
                 $q = new Question();
                 $q->title = ArrayHelper::getValue($val, 'title');
                 $q->required = ArrayHelper::getValue($val, 'required');
-                $q->position = ArrayHelper::getValue($val, 'pos');
+                $q->position = ArrayHelper::getValue($val, 'position');
                 $q->uuid = ArrayHelper::getValue($val, 'uuid');
                 $q->type = ArrayHelper::getValue($val, 'type');
                 $q->meta = json_encode(ArrayHelper::getValue($val, 'meta'));
