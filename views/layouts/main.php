@@ -42,14 +42,14 @@ AppAsset::register($this);
                     'visible' => Yii::$app->user->isGuest
                 ],
                 [
-                    'label' => 'My Surveys',
-                    'url' => ['/survey/index'],
-                    'visible' => !Yii::$app->user->isGuest
-                ],
-                [
                     'label' => 'Admin Panel',
                     'url' => ['/admin'],
                     'visible' => Yii::$app->user->can('Administrator')
+                ],
+                [
+                    'label' => 'My Surveys',
+                    'url' => ['/survey/index'],
+                    'visible' => !Yii::$app->user->isGuest
                 ],
                 [
                     'label' => 'My Profile',
