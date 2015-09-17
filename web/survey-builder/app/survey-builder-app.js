@@ -8,6 +8,11 @@ Vue.http.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('conte
 var SurveyBuilderApp = new Vue({
     el: '#survey-builder',
     data: {
+        title: null,
+        desc: null,
+        emails: null,
+        startDate: null,
+        expireDate: null,
         questions: []
     },
     ready: function () {
@@ -18,6 +23,11 @@ var SurveyBuilderApp = new Vue({
         'builder-q-checkboxes': require('./component-q-checkboxes'),
         'builder-q-textfield': require('./component-q-textfield'),
         'builder-q-slider': require('./component-q-slider')
+    },
+    computed: {
+        questionsExists: function () {
+            return !_.isEmpty(this.questions);
+        }
     },
     methods: {
         defaultQuestion: function () {
@@ -97,11 +107,11 @@ var SurveyBuilderApp = new Vue({
             this.questions.$remove(index);
         },
         saveSurvey: function () {
-            this.$http.post('/admin/survey/save?id=1', JSON.stringify(dbgApp.questions),
+            this.$http.post('/survey/save-new', JSON.stringify(this.$data),
                 function (data, status, request) {
-                    alert('Saved!');
+
                 }).error(function (data, status, request) {
-                alert('Error!');
+                alert('Error');
                 console.log(data, status);
             })
         }

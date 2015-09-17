@@ -35,9 +35,9 @@ class QuestionGii extends \yii\db\ActiveRecord
         return [
             [['survey_id'], 'required'],
             [['survey_id', 'type', 'position'], 'integer'],
-            [['title', 'meta'], 'string'],
+            [['title'], 'string'],
             [['required'], 'boolean'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at', 'meta'], 'safe'],
         ];
     }
 
