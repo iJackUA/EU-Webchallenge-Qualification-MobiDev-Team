@@ -9,13 +9,39 @@
 ?>
 
 
-<div id="survey-builder">
+<div id="survey-builder" class="ui form">
 
     <button class="ui green inverted button"
             v-on="click:saveSurvey">Save
     </button>
 
-    <h4>Add</h4>
+    <div class="field">
+        <label>Title</label>
+        <input type="text" v-model="title">
+    </div>
+
+    <div class="field">
+        <label>Description</label>
+        <textarea v-model="desc" rows="3"></textarea>
+    </div>
+
+    <div class="field">
+        <label>Add respondents emails</label>
+        <input type="text" v-model="emails" placeholder="Coma separated lists of emails">
+    </div>
+
+    <div class="fields">
+        <div class="eight wide field">
+            <label>Start date</label>
+            <input type="date" v-model="startDate">
+        </div>
+        <div class="eight wide field">
+            <label>Expire date</label>
+            <input type="date" v-model="expireDate">
+        </div>
+    </div>
+
+    <h4>Add questions...</h4>
 
     <div class="ui buttons ">
         <button class="ui red button"
@@ -32,9 +58,9 @@
         </button>
     </div>
 
-    <h4>Questions</h4>
+    <h4 v-if="questionsExists" v-transition="expand">Questions list</h4>
 
-    <ul class="ui form questions">
+    <ul class="ui form questions" v-if="questionsExists">
         <li v-repeat="q in questions" v-transition="expand">
 
             <builder-q-radio

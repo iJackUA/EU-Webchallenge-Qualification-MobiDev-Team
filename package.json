@@ -11,7 +11,7 @@
     "uuid-js": "*"
   },
   "scripts": {
-    "dev": "webpack --watch",
+    "dev": "webpack --watch --watch-poll",
     "build": "webpack -p"
   }
 }
