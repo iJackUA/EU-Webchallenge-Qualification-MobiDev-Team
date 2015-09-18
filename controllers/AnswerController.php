@@ -67,6 +67,7 @@ class AnswerController extends Controller
         $answer = $this->findModel($id);
         return $this->render('result', [
             'answer' => $answer,
+            'i' => 0
         ]);
     }
 

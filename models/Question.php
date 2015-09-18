@@ -22,4 +22,10 @@ class Question extends QuestionGii
     {
         return $this->hasOne(Survey::className(), ['id' => 'survey_id']);
     }
+
+    public static function getByUuid($uuid){
+        return self::find()
+            ->where(['uuid' => $uuid])
+            ->one();
+    }
 }
