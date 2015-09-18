@@ -23,6 +23,10 @@ class AnswerController extends Controller
      */
     public function actionNew($id, $secretCode = '')
     {
+        if (Yii::$app->request->get('embed')==1) {
+            $this->layout = 'embed';
+        }
+
         $survey = $this->findSurvey($id);
         $participant = Participant::getByCode($secretCode);
         if ($participant !== null) {
@@ -50,7 +54,7 @@ class AnswerController extends Controller
         $survey = $this->findSurvey($id);
         $answer = Answer::getBySurveyIdAndEmail($survey->id, trim(Yii::$app->request->post('email')));
         if ($answer !== null) {
-            return $this->redirect('/answer/result/' . $answer->id);
+            return $this->redirect('/answer/result/' . $answer->id . ((Yii::$app->request->get('embed') == 1) ? '?embed=1' : ''));
         }
 
         $answer = new Answer();
@@ -59,11 +63,15 @@ class AnswerController extends Controller
         $answer->meta = json_encode(Yii::$app->request->post('survey'));
         $answer->save();
 
-        return $this->redirect('/answer/result/' . $answer->id);
+        return $this->redirect('/answer/result/' . $answer->id . ((Yii::$app->request->get('embed') == 1) ? '?embed=1' : ''));
     }
 
     public function actionResult($id)
     {
+        if (Yii::$app->request->get('embed')==1) {
+            $this->layout = 'embed';
+        }
+
         $answer = $this->findModel($id);
         return $this->render('result', [
             'answer' => $answer,

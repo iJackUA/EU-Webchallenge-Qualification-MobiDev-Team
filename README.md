@@ -8,12 +8,12 @@
 * finish surveys CRUD for user in admin panel, create participants, show send status [Ievgen]
 * add surveys CRUD for user on front-end [Ievgen]
 * add analytics page [Viktor]
-* add JS embedable tag [Sergey]
 * tests?
 * test vagrant
 
 ## Features
 * Invites to Answer Survey are sent Automatically every 1 minute
+* you can embed surveys to other site like so `<script src="//localhost:8888/js/embed_survey.js?survey=:survey_id" async></script>`. See an example in web/test_embed.html. Also you can get embed code in survey view/managment page.
 
 ## Participants
 
