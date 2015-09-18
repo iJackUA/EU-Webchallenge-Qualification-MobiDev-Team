@@ -7,9 +7,8 @@
 ## TODO plan
 * finish surveys CRUD for user in admin panel, create participants, show send status [Ievgen]
 * add surveys CRUD for user on front-end [Ievgen]
-* add answer results page [Sergey]
 * add analytics page [Viktor]
-* add JS embedable tag
+* add JS embedable tag [Sergey]
 * tests?
 * test vagrant
 
