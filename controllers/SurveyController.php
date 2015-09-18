@@ -3,11 +3,14 @@
 namespace app\controllers;
 
 use app\lib\ArraySerializer;
+use app\models\Participant;
 use app\models\Question;
 use Yii;
 use app\models\Survey;
 use app\models\SearchSurvey;
+use yii\base\Security;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -121,16 +124,16 @@ class SurveyController extends Controller
             return [
                 'title' => $survey->title,
                 'desc' => $survey->desc,
-                'emails' => $survey->emails,
-                'startDate' => $survey->startDate,
-                'expireDate' => $survey->expireDate,
+                'emails' => implode(', ', ArrayHelper::getColumn($survey->participants, 'email')),
+                'startDate' => (new \DateTime($survey->startDate))->format("Y-m-d"),
+                'expireDate' => (new \DateTime($survey->expireDate))->format("Y-m-d"),
                 'questions' => $fractal->createData($questionItems)->toArray()
             ];
         });
 
 
         Yii::$app->gon->send('survey', $fractal->createData($surveyItem)->toArray());
-        Yii::$app->gon->send('saveSurveyUrl', '/survey/save-update');
+        Yii::$app->gon->send('saveSurveyUrl', Url::to(['/survey/save-update', 'id' => $id]));
         Yii::$app->gon->send('afterSaveSurveyRedirectUrl', \Yii::$app->getUser()->getReturnUrl());
 
         return $this->render('update', [
@@ -139,34 +142,34 @@ class SurveyController extends Controller
 
     }
 
-    public function actionSaveUpdate()
+    public function actionSaveUpdate($id)
     {
-
+        $survey = $this->saveSurvey($id);
+        $this->syncQuestions($survey);
+        $this->syncParticipants($survey);
     }
 
     public function actionSaveNew()
     {
         $questions = Yii::$app->request->getBodyParam('questions');
 
-        $survey = new Survey();
-        $survey->title = Yii::$app->request->getBodyParam('title');
-        $survey->desc = Yii::$app->request->getBodyParam('desc');
-        $survey->startDate = Yii::$app->request->getBodyParam('startDate');
-        $survey->expireDate = Yii::$app->request->getBodyParam('expireDate');
-        $survey->createdBy = Yii::$app->user->id;
-        $survey->save();
+        $survey = $this->saveSurvey();
 
         if (count($questions) > 0) {
             foreach ($questions as $key => $val) {
-                $q = new Question();
-                $q->title = ArrayHelper::getValue($val, 'title');
-                $q->required = ArrayHelper::getValue($val, 'required');
-                $q->position = ArrayHelper::getValue($val, 'position');
-                $q->uuid = ArrayHelper::getValue($val, 'uuid');
-                $q->type = ArrayHelper::getValue($val, 'type');
-                $q->meta = json_encode(ArrayHelper::getValue($val, 'meta'));
-                $q->survey_id = $survey->id;
-                $q->save();
+                $this->saveQuestion($val, $survey);
+            }
+        }
+
+        $emailsString = Yii::$app->request->getBodyParam('emails');
+        $emails = explode(',', $emailsString);
+
+        if (count($emails) > 0) {
+            foreach ($emails as $email) {
+                $email = trim($email);
+                if (strlen($email) > 0) {
+                    $this->saveParticipant($email, $survey);
+                }
             }
         }
 
@@ -201,5 +204,102 @@ class SurveyController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    protected function saveSurvey($id = null)
+    {
+        $survey = is_null($id) ? new Survey() : $this->findModel($id);
+        $survey->title = Yii::$app->request->getBodyParam('title');
+        $survey->desc = Yii::$app->request->getBodyParam('desc');
+        $survey->startDate = Yii::$app->request->getBodyParam('startDate');
+        $survey->expireDate = Yii::$app->request->getBodyParam('expireDate');
+        $survey->createdBy = Yii::$app->user->id;
+        $survey->save();
+        return $survey;
+    }
+
+    protected function saveQuestion($qData, $survey, $uuid = null)
+    {
+        $q = is_null($uuid) ? new Question() : Question::findOne(['uuid' => $uuid]);
+        $q->title = ArrayHelper::getValue($qData, 'title');
+        $q->required = ArrayHelper::getValue($qData, 'required');
+        $q->position = ArrayHelper::getValue($qData, 'position');
+        $q->uuid = ArrayHelper::getValue($qData, 'uuid');
+        $q->type = ArrayHelper::getValue($qData, 'type');
+        $q->meta = json_encode(ArrayHelper::getValue($qData, 'meta'));
+        $q->survey_id = $survey->id;
+        $q->save();
+        return $q;
+    }
+
+    protected function saveParticipant($email, $survey)
+    {
+        $participant = new Participant();
+        $participant->email = trim($email);
+        $participant->survey_id = $survey->id;
+        $participant->secretCode = (new Security)->generateRandomString();
+        $participant->save();
+        return $participant;
+    }
+
+    protected function syncQuestions($survey)
+    {
+        $questions = Yii::$app->request->getBodyParam('questions');
+
+        $newQModels = ArrayHelper::index($questions, 'uuid');
+
+        $newUUIDs = ArrayHelper::getColumn($questions, 'uuid');
+        $existingUUIDs = ArrayHelper::getColumn($survey->questions, 'uuid');
+
+        $uuidsToCreate = array_diff($newUUIDs, $existingUUIDs);
+        $uuidsToUpdate = array_intersect($newUUIDs, $existingUUIDs);
+        $uuidsToDelete = array_diff($existingUUIDs, $newUUIDs);
+
+        if ($uuidsToCreate > 0) {
+            foreach ($uuidsToCreate as $uuid) {
+                $this->saveQuestion($newQModels[$uuid], $survey);
+            }
+        }
+
+        if ($uuidsToUpdate > 0) {
+            foreach ($uuidsToUpdate as $uuid) {
+                $this->saveQuestion($newQModels[$uuid], $survey, $uuid);
+            }
+        }
+
+        if ($uuidsToDelete > 0) {
+            foreach ($uuidsToDelete as $uuid) {
+                Question::deleteAll(['uuid' => $uuid]);
+            }
+        }
+    }
+
+    protected function syncParticipants(Survey $survey)
+    {
+        $emailsString = Yii::$app->request->getBodyParam('emails');
+        $newEmails = explode(',', $emailsString);
+        $newEmails = array_map(function ($email) {
+            return trim($email);
+        }, $newEmails);
+
+        $existingParticipants = $survey->participants;
+        $existingParticipantsModels = ArrayHelper::index($survey->participants, 'email');
+        $existingEmails = ArrayHelper::getColumn($existingParticipants, 'email');
+
+        $emailsToCreate = array_diff($newEmails, $existingEmails);
+        $emailsToDelete = array_diff($existingEmails, $newEmails);
+
+        if ($emailsToCreate > 0) {
+            foreach ($emailsToCreate as $email) {
+                $this->saveParticipant($email, $survey);
+            }
+        }
+
+        if ($emailsToDelete > 0) {
+            foreach ($emailsToDelete as $email) {
+                $existingParticipantsModels[$email]->delete();
+            }
+        }
+
     }
 }
