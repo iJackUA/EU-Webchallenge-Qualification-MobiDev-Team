@@ -6,6 +6,13 @@ use app\models\gii\SurveyGii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
+/**
+ * Class Survey
+ *
+ * @package app\models
+ * @property Array $participants
+ * @property Array $questions
+ */
 class Survey extends SurveyGii
 {
     public function behaviors()
@@ -18,6 +25,10 @@ class Survey extends SurveyGii
         ];
     }
 
+    public static function find()
+    {
+        return parent::find()->with(['participants','questions']);
+    }
 
     public function getQuestions()
     {
