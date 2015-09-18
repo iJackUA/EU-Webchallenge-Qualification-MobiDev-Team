@@ -16,7 +16,7 @@ use app\components\AnswerTextFieldWidget;
 <?php if ($survey->isActive()) { ?>
     <p>Please provide answers to the following questions:</p>
 
-    <?php $form = ActiveForm::begin(['action' => '/answer/create/' . $survey->id]); ?>
+    <?php $form = ActiveForm::begin(['action' => '/answer/create/' . $survey->id . ((Yii::$app->request->get('embed') == 1) ? '?embed=1' : '')]); ?>
 
     Your Email: <?= Html::input('email', 'email', ($participant !== null) ? $participant->email : '', ['placeholder' => 'Enter Email', 'required' => true, 'readonly' => ($participant !== null) ? true : false]) ?>
 

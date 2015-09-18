@@ -13,7 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="survey-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
+<pre>
+    Here is the embeddable js code for your survey:
 
+    <?= Html::encode('<script src="//localhost:8888/js/embed_survey.js?survey=' . $model->id . '" async></script>'); ?>
+</pre>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
