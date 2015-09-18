@@ -5,14 +5,16 @@
 * Default admin user is: admin/admin
 
 ## TODO plan
-* finish surveys CRUD for user in admin panel
-* add surveys CRUD for user on front-end
-* add answer page
-* add results page on back-end and front-end
-* add task to send email invites
+* finish surveys CRUD for user in admin panel, create participants, show send status [Ievgen]
+* add surveys CRUD for user on front-end [Ievgen]
+* add answer results page [Sergey]
+* add analytics page [Viktor]
 * add JS embedable tag
 * tests?
 * test vagrant
+
+## Features
+* Invites to Answer Survey are sent Automatically every 1 minute
 
 ## Participants
 
