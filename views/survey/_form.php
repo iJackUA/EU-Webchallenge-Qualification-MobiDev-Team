@@ -33,11 +33,21 @@
     <div class="fields">
         <div class="eight wide field">
             <label>Start date</label>
-            <input type="date" v-model="startDate">
+            <?= yii\jui\DatePicker::widget([
+                'name' => 'startDate',
+                'dateFormat' => 'yyyy-MM-dd',
+                'options' => ['v-model' => 'startDate'],
+                'clientOptions' => ['defaultDate' => date('Y-m-d')]
+            ]); ?>
         </div>
         <div class="eight wide field">
             <label>Expire date</label>
-            <input type="date" v-model="expireDate">
+            <?= yii\jui\DatePicker::widget([
+                'name' => 'expireDate',
+                'dateFormat' => 'yyyy-MM-dd',
+                'options' => ['v-model' => 'expireDate'],
+                'clientOptions' => ['defaultDate' => date('Y-m-d')]
+            ]); ?>
         </div>
     </div>
 
