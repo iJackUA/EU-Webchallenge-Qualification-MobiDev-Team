@@ -7,6 +7,7 @@
 
 ## TODO plan
 * when user deleted - his surveys, questions, answers should be also deleted [Someone]
+* forbid update after start date [Ievgen]
 * test and check survey builder (edit, create) [Ievgen]
 * test vagrant [Ievgen + Viktor]
 * send the task [Ievgen + Viktor]
