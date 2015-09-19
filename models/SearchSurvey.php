@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Survey;
+use yii\helpers\VarDumper;
 
 /**
  * SearchSurvey represents the model behind the search form about `app\models\Survey`.
@@ -39,9 +40,15 @@ class SearchSurvey extends Survey
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $usedId = null)
     {
         $query = Survey::find();
+        if (!Yii::$app->user->can('Administrator')) {
+            $usedId = Yii::$app->getUser()->getId();
+        }
+        if ($usedId) {
+            $query->where(['createdBy' => $usedId]);
+        }
 
         // add conditions that should always apply here
 

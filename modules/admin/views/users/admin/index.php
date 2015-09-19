@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                              [
                                  'header' => 'Surveys',
                                  'value' => function ($model) {
-                                          return Html::a('Surveys', ['/admin/survey/index', 'user_id' => $model->id], [
+                                          return Html::a('Surveys', ['/survey/index', 'id' => $model->id], [
                                              'class' => 'btn btn-xs btn-info',
                                          ]);
                                  },

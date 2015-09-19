@@ -49,10 +49,11 @@ class SurveyController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
+        $userId = $id ?: Yii::$app->getUser()->getId();
         $searchModel = new SearchSurvey();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $userId);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
