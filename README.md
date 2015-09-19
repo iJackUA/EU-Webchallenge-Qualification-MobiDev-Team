@@ -5,9 +5,7 @@
 * Default admin user is: admin/admin
 
 ## TODO plan
-* finish surveys CRUD for user in admin panel
-* show send status
-* add surveys CRUD for user on front-end
+* show send status[Sergey]
 * tests?
 * test vagrant
 
