@@ -6,6 +6,7 @@ use Yii;
 use app\models\Answer;
 use app\models\Survey;
 use app\models\Participant;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
@@ -53,11 +54,10 @@ class AnswerController extends Controller
         }
         $survey = $this->findSurvey($id);
         $answer = Answer::getBySurveyIdAndEmail($survey->id, trim(Yii::$app->request->post('email')));
-        if ($answer !== null) {
-            return $this->redirect('/answer/result/' . $answer->id . ((Yii::$app->request->get('embed') == 1) ? '?embed=1' : ''));
+        if ($answer === null) {
+            $answer = new Answer();
         }
 
-        $answer = new Answer();
         $answer->survey_id = $survey->id;
         $answer->email = trim(Yii::$app->request->post('email'));
         $answer->meta = json_encode(Yii::$app->request->post('survey'));

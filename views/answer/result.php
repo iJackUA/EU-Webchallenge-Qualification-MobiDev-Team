@@ -12,7 +12,9 @@ use app\models\Question;
     <?= $answer->survey->desc; ?> <br /><br />
     <b>Answer date:</b> <?= $answer->created_at; ?>
 </p>
-<?php foreach(json_decode($answer->meta, true) as $uuid => $value) {
+<?php
+$meta = json_decode($answer->meta, true) ?: [];
+foreach($meta as $uuid => $value) {
     $i++;
     echo AnswerResultWidget::widget(['question' => Question::getByUuid($uuid), 'pos' => $i, 'value' => $value]);
 } ?>

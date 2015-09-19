@@ -190,6 +190,19 @@ class SurveyController extends Controller
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function actionAnalytics($id)
+    {
+        $model = $this->findModel($id);
+
+        return $this->render('analytics', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
      * Finds the Survey model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
@@ -300,6 +313,5 @@ class SurveyController extends Controller
                 $existingParticipantsModels[$email]->delete();
             }
         }
-
     }
 }

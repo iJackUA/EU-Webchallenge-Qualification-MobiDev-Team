@@ -17,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::encode('<script src="//localhost:8888/js/embed_survey.js?survey=' . $model->id . '" async></script>'); ?>
 </pre>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-stats"></span> Analytics', ['analytics', 'id' => $model->id],
-            ['class' => 'btn btn-info']); ?>
+        <?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> View', ['view', 'id' => $model->id],
+            ['class' => 'btn btn-primary']); ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Update', ['update', 'id' => $model->id],
             ['class' => 'btn btn-warning']); ?>
         <?= Html::a('<span class="glyphicon glyphicon-trash"></span> Delete', ['delete', 'id' => $model->id], [

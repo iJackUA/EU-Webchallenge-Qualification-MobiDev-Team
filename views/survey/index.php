@@ -36,13 +36,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw'
                 ],
                 'desc:ntext',
-                'startDate',
-                'expireDate',
+                'startDate:datetime',
+                'expireDate:datetime',
                 // 'createdBy',
                 // 'created_at',
                 // 'updated_at',
 
-                ['class' => 'yii\grid\ActionColumn'],
+                [
+                    'class' => \yii\grid\ActionColumn::className(),
+                    'template'=>'{analytic} {view} {update} {delete}',
+                    'buttons' => [
+                        'analytic' => function ($url, $model) {
+                            $analyticsUrl = \yii\helpers\Url::to(['survey/analytics', 'id' => $model->id]);
+                            return \yii\helpers\Html::a('<span class="glyphicon glyphicon-stats"></span>', $analyticsUrl,
+                                ['title' => Yii::t('yii', 'Analytics')]);
+                        }
+                    ],
+                ]
             ],
         ]); ?>
 
