@@ -69,7 +69,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'createdBy',
                 // 'created_at',
                 // 'updated_at',
-
+                [
+                    'header' => 'Emails',
+                    'value' => function ($model) {
+                        $all = $model->getAllParticipantsCount();
+                        $done = $model->getSentParticipantsCount();
+                        return " $done/$all ".Html::a('status', ['/survey/participants', 'id' => $model->id], [
+                            'class' => 'btn btn-xs btn-info',
+                        ]);
+                    },
+                    'format' => 'raw',
+                ],
                 [
                     'class' => \yii\grid\ActionColumn::className(),
                     'template'=>'{analytic} {view} {update} {delete}',

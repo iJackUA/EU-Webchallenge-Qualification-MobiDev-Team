@@ -26,6 +26,8 @@ $answers = $model->getAnswers();
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> View', ['view', 'id' => $model->id],
             ['class' => 'btn btn-primary']); ?>
+        <?= Html::a('<span class="glyphicon glyphicon-user"></span> Participants '. $model->getSentParticipantsCount() . '/' . $model->getAllParticipantsCount(), ['participants', 'id' => $model->id],
+                    ['class' => 'btn btn-success']); ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Update', ['update', 'id' => $model->id],
             ['class' => 'btn btn-warning']); ?>
         <?= Html::a('<span class="glyphicon glyphicon-trash"></span> Delete', ['delete', 'id' => $model->id], [

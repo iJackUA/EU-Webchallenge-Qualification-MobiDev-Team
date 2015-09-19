@@ -33,6 +33,11 @@ class Survey extends SurveyGii
         return parent::find()->with(['participants','questions']);
     }
 
+    public function getOwner()
+    {
+        return $this->hasOne(User::className(), ['id' => 'createdBy']);
+    }
+
     public function getQuestions()
     {
         return $this->hasMany(Question::className(), ['survey_id' => 'id']);
@@ -77,5 +82,13 @@ class Survey extends SurveyGii
         } else {
             return false;
         }
+    }
+
+    public function getAllParticipantsCount(){
+        return $this->getParticipants()->count();
+    }
+
+    public function getSentParticipantsCount(){
+        return $this->getParticipants()->where(['status' => Participant::STATUS_SEND])->count();
     }
 }

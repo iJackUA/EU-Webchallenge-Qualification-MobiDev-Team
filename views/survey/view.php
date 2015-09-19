@@ -23,6 +23,8 @@ Url:<?php $url = \yii\helpers\Url::to(['answer/new', 'id' => $model->id], true);
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-stats"></span> Analytics', ['analytics', 'id' => $model->id],
             ['class' => 'btn btn-info']); ?>
+        <?= Html::a('<span class="glyphicon glyphicon-user"></span> Participants '. $model->getSentParticipantsCount() . '/' . $model->getAllParticipantsCount(), ['participants', 'id' => $model->id],
+                    ['class' => 'btn btn-success']); ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Update', ['update', 'id' => $model->id],
             ['class' => 'btn btn-warning']); ?>
         <?= Html::a('<span class="glyphicon glyphicon-trash"></span> Delete', ['delete', 'id' => $model->id], [
@@ -43,7 +45,7 @@ Url:<?php $url = \yii\helpers\Url::to(['answer/new', 'id' => $model->id], true);
             'startDate:date',
             'sendDate:date',
             'expireDate:date',
-            'createdBy',
+            ['attribute' => 'owner.username', 'label' => 'Created By'],
             'created_at:datetime',
             'updated_at:datetime',
         ],

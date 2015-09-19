@@ -206,6 +206,19 @@ class SurveyController extends Controller
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function actionParticipants($id)
+    {
+        $model = $this->findModel($id);
+
+        return $this->render('participants', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
      * Finds the Survey model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
