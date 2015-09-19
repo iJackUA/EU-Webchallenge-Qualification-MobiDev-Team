@@ -11,7 +11,7 @@ use app\models\SearchSurvey;
 use yii\base\Security;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-use yii\helpers\VarDumper;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -199,8 +199,6 @@ class SurveyController extends Controller
     public function actionAnalytics($id)
     {
         $model = $this->findModel($id);
-//        VarDumper::dump($model->questionsWithAnswers, 10, true);
-//        die();
 
         return $this->render('analytics', [
             'model' => $model,
@@ -218,6 +216,7 @@ class SurveyController extends Controller
     protected function findModel($id)
     {
         if (($model = Survey::findOne($id)) !== null) {
+            $this->checkViewAccess($model);
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -318,6 +317,13 @@ class SurveyController extends Controller
             foreach ($emailsToDelete as $email) {
                 $existingParticipantsModels[$email]->delete();
             }
+        }
+    }
+
+    protected function checkViewAccess($survey)
+    {
+        if (!\Yii::$app->user->can('Administrator') && isset($survey->createdBy) && $survey->createdBy != Yii::$app->user->id) {
+            throw new ForbiddenHttpException('Access denied');
         }
     }
 }
