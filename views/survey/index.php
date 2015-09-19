@@ -36,8 +36,36 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw'
                 ],
                 'desc:ntext',
-                'startDate:datetime',
-                'expireDate:datetime',
+                [
+                    'attribute' => 'startDate',
+                    'value' => 'startDate',
+                    'filter' => \yii\jui\DatePicker::widget([
+                        'model' => $searchModel,
+                        'attribute' => 'startDate',
+                        'options' => [
+                            'class' => 'form-control'
+                        ],
+                        'clientOptions' => [
+                            'dateFormat' => 'dd.mm.yy',
+                        ]
+                    ]),
+                    'format' => 'date'
+                ],
+                [
+                    'attribute' => 'expireDate',
+                    'value' => 'expireDate',
+                    'filter' => \yii\jui\DatePicker::widget([
+                        'model' => $searchModel,
+                        'attribute' => 'expireDate',
+                        'options' => [
+                            'class' => 'form-control'
+                        ],
+                        'clientOptions' => [
+                            'dateFormat' => 'dd.mm.yy',
+                        ]
+                    ]),
+                    'format' => 'date'
+                ],
                 // 'createdBy',
                 // 'created_at',
                 // 'updated_at',
