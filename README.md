@@ -13,7 +13,7 @@
 
 ## Features
 * Invites to Answer Survey are sent Automatically every 1 minute
-* you can embed surveys to other site like so `<script src="//localhost:8888/js/embed_survey.js?survey=:survey_id" async></script>`. See an example in web/test_embed.html. Also you can get embed code in survey view/managment page.
+* you can embed surveys to other site like so `<script src="//localhost:8888/js/embed_survey.js?survey=:survey_id" async></script>`. See an example in `web/test_embed.html` and visit `http://localhost:8888/test_embed.html`. Also you can get embed code in survey view/managment page.
 * You can manually visit survey answer page via url `http://localhost:8888/answer/new/:survey_id` for example `http://localhost:8888/answer/new/1`
 
 ## Participants
