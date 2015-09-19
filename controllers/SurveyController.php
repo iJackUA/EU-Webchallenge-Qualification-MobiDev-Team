@@ -127,6 +127,7 @@ class SurveyController extends Controller
                 'desc' => $survey->desc,
                 'emails' => implode(', ', ArrayHelper::getColumn($survey->participants, 'email')),
                 'startDate' => (new \DateTime($survey->startDate))->format("Y-m-d"),
+                'sendDate' => (new \DateTime($survey->sendDate))->format("Y-m-d"),
                 'expireDate' => (new \DateTime($survey->expireDate))->format("Y-m-d"),
                 'questions' => $fractal->createData($questionItems)->toArray()
             ];
@@ -228,6 +229,7 @@ class SurveyController extends Controller
         $survey->title = Yii::$app->request->getBodyParam('title');
         $survey->desc = Yii::$app->request->getBodyParam('desc');
         $survey->startDate = Yii::$app->request->getBodyParam('startDate');
+        $survey->sendDate = Yii::$app->request->getBodyParam('sendDate');
         $survey->expireDate = Yii::$app->request->getBodyParam('expireDate');
         $survey->createdBy = Yii::$app->user->id;
         $survey->save();

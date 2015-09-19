@@ -41,6 +41,15 @@
             ]); ?>
         </div>
         <div class="eight wide field">
+            <label>Send date</label>
+            <?= yii\jui\DatePicker::widget([
+                'name' => 'sendDate',
+                'dateFormat' => 'yyyy-MM-dd',
+                'options' => ['v-model' => 'sendDate'],
+                'clientOptions' => ['defaultDate' => date('Y-m-d')]
+            ]); ?>
+        </div>
+        <div class="eight wide field">
             <label>Expire date</label>
             <?= yii\jui\DatePicker::widget([
                 'name' => 'expireDate',

@@ -5,9 +5,10 @@
 * Default admin user is: admin/admin
 
 ## TODO plan
-* finish surveys CRUD for user in admin panel, create participants, show send status [Ievgen]
+* finish surveys CRUD for user in admin panel [Ievgen]
+* create participants ?! [Ievgen]
+* show send status [Viktor]
 * add surveys CRUD for user on front-end [Ievgen]
-* add analytics page [Viktor]
 * tests?
 * test vagrant
 
