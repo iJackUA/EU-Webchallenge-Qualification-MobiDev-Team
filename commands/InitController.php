@@ -61,6 +61,7 @@ class InitController extends Controller
         ])->execute();
         $surveyId = $connection->getLastInsertID('survey_id_seq');
 
+        //Questions
         $connection->createCommand()->insert('{{%question}}', [
             'survey_id' => $surveyId,
             'title' => "Did you like our tea?",
@@ -96,8 +97,50 @@ class InitController extends Controller
             'title' => "How good is our service from 1 to 100?",
             'type' => "slider",
             'position' => 4,
-            'meta' => '{"from":1,"to":"70","default":"100"}',
+            'meta' => '{"from":1,"to":"100","default":"70"}',
             'uuid' => '11d9bf19-1270-4910-b3d7-226e903d693d',
+            'created_at' => '2015-09-01 00:00:00',
+            'updated_at' => '2015-09-01 00:00:00',
+        ])->execute();
+
+        //Answers
+        $connection->createCommand()->insert('{{%answer}}', [
+            'survey_id' => $surveyId,
+            'email' => "test@example.com",
+            'meta' => '{"1e860c8f-ed7d-4421-8265-0bfb9ad8b520":"e5657a38-32b1-46d2-9c8d-3c0e3411302f","9a89cb60-172f-4fab-a1b4-312f5831e006":["16d2dbf8-47c4-4747-b7aa-da9a7fc100e6","50549d5a-b83c-4a7e-b6de-162f738fdd37"],"86586530-d034-4d34-848c-3e8031d757b0":"wow!","11d9bf19-1270-4910-b3d7-226e903d693d":"39"}',
+            'created_at' => '2015-09-01 00:00:00',
+            'updated_at' => '2015-09-01 00:00:00',
+        ])->execute();
+        $connection->createCommand()->insert('{{%answer}}', [
+            'survey_id' => $surveyId,
+            'email' => "test2@example.com",
+            'meta' => '{"1e860c8f-ed7d-4421-8265-0bfb9ad8b520":"e5657a38-32b1-46d2-9c8d-3c0e3411302f","9a89cb60-172f-4fab-a1b4-312f5831e006":["50549d5a-b83c-4a7e-b6de-162f738fdd37","9af0532d-393a-49d8-8250-173c9f6868e1"],"86586530-d034-4d34-848c-3e8031d757b0":"haha","11d9bf19-1270-4910-b3d7-226e903d693d":"70"}',
+            'created_at' => '2015-09-01 00:00:00',
+            'updated_at' => '2015-09-01 00:00:00',
+        ])->execute();
+
+        //Participants
+        $connection->createCommand()->insert('{{%participant}}', [
+            'survey_id' => $surveyId,
+            'email' => "test@example.com",
+            'secretCode' => '12345678',
+            'status' => 1,
+            'created_at' => '2015-09-01 00:00:00',
+            'updated_at' => '2015-09-01 00:00:00',
+        ])->execute();
+        $connection->createCommand()->insert('{{%participant}}', [
+            'survey_id' => $surveyId,
+            'email' => "test2@example.com",
+            'secretCode' => '87654321',
+            'status' => 1,
+            'created_at' => '2015-09-01 00:00:00',
+            'updated_at' => '2015-09-01 00:00:00',
+        ])->execute();
+        $connection->createCommand()->insert('{{%participant}}', [
+            'survey_id' => $surveyId,
+            'email' => "test3@example.com",
+            'secretCode' => '87651234',
+            'status' => 0,
             'created_at' => '2015-09-01 00:00:00',
             'updated_at' => '2015-09-01 00:00:00',
         ])->execute();
