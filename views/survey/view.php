@@ -15,6 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 <pre>Here is the embeddable js code for your survey:
     <?= Html::encode('<script src="//localhost:8888/js/embed_survey.js?survey=' . $model->id . '" async></script>'); ?>
+
+Url:<?php $url = \yii\helpers\Url::to(['answer/new', 'id' => $model->id], true); ?>
+
+    <a href="<?= $url; ?>" target="_blank"><?= $url; ?></a>
 </pre>
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-stats"></span> Analytics', ['analytics', 'id' => $model->id],

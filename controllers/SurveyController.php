@@ -11,6 +11,7 @@ use app\models\SearchSurvey;
 use yii\base\Security;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -196,6 +197,8 @@ class SurveyController extends Controller
     public function actionAnalytics($id)
     {
         $model = $this->findModel($id);
+//        VarDumper::dump($model->questionsWithAnswers, 10, true);
+//        die();
 
         return $this->render('analytics', [
             'model' => $model,
