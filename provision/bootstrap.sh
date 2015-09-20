@@ -52,16 +52,16 @@ service php5-fpm restart
 
 # setup npm dependencies
 # and build static assets
-/bin/su -c 'npm install' vagrant
-/bin/su -c 'npm run-script build' vagrant
+#/bin/su -c 'npm install' vagrant
+#/bin/su -c 'npm run-script build' vagrant
 
 ## run migrations
-/bin/su -c './yii migrate --migrationPath=@vendor/dektrium/yii2-user/migrations --interactive=0' vagrant
-/bin/su -c './yii migrate --migrationPath=@yii/rbac/migrations --interactive=0' vagrant
-/bin/su -c './yii migrate --interactive=0' vagrant
+/bin/su -c '/vagrant/yii migrate --migrationPath=@vendor/dektrium/yii2-user/migrations --interactive=0' vagrant
+/bin/su -c '/vagrant/yii migrate --migrationPath=@yii/rbac/migrations --interactive=0' vagrant
+/bin/su -c '/vagrant/yii migrate --interactive=0' vagrant
 
 # create admin user and example data
-/bin/su -c './yii init' vagrant
+/bin/su -c '/vagrant/yii init' vagrant
 
 # remove all crontab job
 crontab -r
