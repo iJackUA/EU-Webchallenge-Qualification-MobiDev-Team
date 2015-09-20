@@ -51,11 +51,9 @@ class SurveyController extends Controller
      */
     public function actionIndex($id = null)
     {
-        if (!Yii::$app->user->can('Administrator')) {
-            $id = $id ?: Yii::$app->getUser()->getId();
-        }
+        $userId = $id ?: Yii::$app->getUser()->getId();
         $searchModel = new SearchSurvey();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $userId);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -139,7 +137,7 @@ class SurveyController extends Controller
 
         Yii::$app->gon->send('survey', $fractal->createData($surveyItem)->toArray());
         Yii::$app->gon->send('saveSurveyUrl', Url::to(['/survey/save-update', 'id' => $id]));
-        Yii::$app->gon->send('afterSaveSurveyRedirectUrl', \Yii::$app->getUser()->getReturnUrl());
+        Yii::$app->gon->send('afterSaveSurveyRedirectUrl', \Yii::$app->request->referrer);
 
         return $this->render('update', [
             'model' => $survey,
@@ -208,6 +206,19 @@ class SurveyController extends Controller
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function actionParticipants($id)
+    {
+        $model = $this->findModel($id);
+
+        return $this->render('participants', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
      * Finds the Survey model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
@@ -233,7 +244,7 @@ class SurveyController extends Controller
         $survey->startDate = Yii::$app->request->getBodyParam('startDate');
         $survey->sendDate = Yii::$app->request->getBodyParam('sendDate');
         $survey->expireDate = Yii::$app->request->getBodyParam('expireDate');
-        $survey->createdBy = Yii::$app->user->id;
+        $survey->createdBy = ($survey->createdBy) ? $survey->createdBy : Yii::$app->user->id;
         $survey->save();
         return $survey;
     }

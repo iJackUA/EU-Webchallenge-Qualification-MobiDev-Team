@@ -6,7 +6,7 @@ class DashboardController extends BaseController
 {
     public function actionIndex()
     {
-        return $this->redirect('/user/admin');
+        return $this->redirect('/admin/survey/index');
         //return $this->render('index');
     }
 }

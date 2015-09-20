@@ -35,7 +35,20 @@ AppAsset::register($this);
                   ]);
     echo Nav::widget([
                          'options' => ['class' => 'navbar-nav navbar-right'],
-                         'items' => [-
+                         'items' => [
+                             [
+                                 'label' => 'Go Back to Site',
+                                 'url' => ['/'],
+                             ],
+                             [
+                                 'label' => 'Manage Surveys',
+                                 'url' => ['/admin/survey/index'],
+                             ],
+                             [
+                                 'label' => 'Manage Users',
+                                 'url' => ['/user/admin'],
+                             ],
+                             -
                              Yii::$app->user->isGuest ?
                                  ['label' => 'Login', 'url' => ['/user/login']] :
                                  [

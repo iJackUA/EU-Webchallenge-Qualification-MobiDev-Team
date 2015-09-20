@@ -78,6 +78,8 @@ class SearchSurvey extends Survey
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'desc', $this->desc]);
 
+        $query->orderBy(['created_at' => SORT_DESC]);
+
         return $dataProvider;
     }
 }

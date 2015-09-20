@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Survey', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Survey', ['/survey/create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget(
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'title',
                     'value' => function ($model, $key, $index, $column) {
                         return Html::a($model->{$column->attribute},
-                                       \yii\helpers\Url::to(['survey/update', 'id' => $model->id]));
+                                       \yii\helpers\Url::to(['/survey/update', 'id' => $model->id]));
                     },
                     'format' => 'raw'
                 ],
@@ -83,9 +83,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'class' => \yii\grid\ActionColumn::className(),
                     'template'=>'{analytic} {view} {update} {delete}',
+                    'controller' => '/survey',
                     'buttons' => [
                         'analytic' => function ($url, $model) {
-                            $analyticsUrl = \yii\helpers\Url::to(['survey/analytics', 'id' => $model->id]);
+                            $analyticsUrl = \yii\helpers\Url::to(['/survey/analytics', 'id' => $model->id]);
                             return \yii\helpers\Html::a('<span class="glyphicon glyphicon-stats"></span>', $analyticsUrl,
                                 ['title' => Yii::t('yii', 'Analytics')]);
                         }

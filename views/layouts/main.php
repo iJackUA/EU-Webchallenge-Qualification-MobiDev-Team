@@ -27,7 +27,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'MobiDev eBook',
+        'brandLabel' => 'MobiDev Surveys',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -77,8 +77,10 @@ AppAsset::register($this);
 
 <div class="ui inverted vertical footer segment form-page">
     <div class="ui container">
-        <p class="pull-right">&copy; <a href="http://mobidev.biz/" target="_blank">MobiDev</a> for EuWeb
-            Challenge <?= date('Y') ?></p>
+        <p class="pull-right">&copy;
+            <a href="https://github.com/iJackUA">Ievgen Kuzminov</a> &bullet;
+            <a href="https://github.com/sergey-koba-mobidev">Sergey Koba</a> &bullet;
+            <a href="https://github.com/VictorGub">Viktor Gubochkin</a> for EU Web Challenge 2015</p>
     </div>
 </div>
 
