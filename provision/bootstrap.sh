@@ -64,6 +64,6 @@ service php5-fpm restart
 /bin/su -c '/vagrant/yii init' vagrant
 
 # remove all crontab job
-crontab -r
+/bin/su -c 'crontab -r' vagrant
 # create crontab job
-crontab -l | { cat; echo "*/1 * * * * /vagrant/yii send > /dev/null 2>&1"; } | crontab -
+/bin/su -c 'crontab -l | { cat; echo "*/1 * * * * /vagrant/yii send > /dev/null 2>&1"; } | crontab -' vagrant
