@@ -85,7 +85,7 @@ class SurveyController extends Controller
         $model = new Survey();
 
         Yii::$app->gon->send('saveSurveyUrl', '/survey/save-new');
-        Yii::$app->gon->send('afterSaveSurveyRedirectUrl', \Yii::$app->getUser()->getReturnUrl());
+        Yii::$app->gon->send('afterSaveSurveyRedirectUrl', \Yii::$app->request->referrer);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
