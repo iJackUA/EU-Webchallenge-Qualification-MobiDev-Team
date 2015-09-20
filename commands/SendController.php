@@ -44,7 +44,6 @@ class SendController extends Controller
                 FROM participant
                 INNER JOIN survey on survey.id = participant.survey_id
                 WHERE participant.status = " . Participant::STATUS_WAIT_FOR_SEND . "
-                AND survey.\"sendDate\" >= '" . date('Y-m-d 00:00:00') . "'
                 AND survey.\"sendDate\" < '" . date('Y-m-d 23:59:59') . "'
             ")->one();
 
