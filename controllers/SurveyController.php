@@ -51,9 +51,11 @@ class SurveyController extends Controller
      */
     public function actionIndex($id = null)
     {
-        $userId = $id ?: Yii::$app->getUser()->getId();
+        if (!Yii::$app->user->can('Administrator')) {
+            $id = $id ?: Yii::$app->getUser()->getId();
+        }
         $searchModel = new SearchSurvey();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $userId);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -201,19 +203,6 @@ class SurveyController extends Controller
         $model = $this->findModel($id);
 
         return $this->render('analytics', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function actionParticipants($id)
-    {
-        $model = $this->findModel($id);
-
-        return $this->render('participants', [
             'model' => $model,
         ]);
     }
