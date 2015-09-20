@@ -5,13 +5,6 @@
 * To log in to the Admin Panel go to  [http://localhost:8888/admin]
 * Default admin user is: admin/admin
 
-## TODO plan
-* when user deleted - his surveys, questions, answers should be also deleted [Someone]
-* forbid update after start date [Ievgen]
-* test and check survey builder (edit, create) [Ievgen]
-* test vagrant [Ievgen + Viktor]
-* send the task [Ievgen + Viktor]
-
 ## Features
 * Invites to Answer Survey are sent Automatically every 1 minute. Set the survey "Send Date"=today to send the emails. You can set date in future and wait too ;)
 * User receives invite with the link like so: `http://localhost:8888/answer/new/1?secretCode=87651234`. This link should be valid after `vagrant up`.
